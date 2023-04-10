@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire;
-
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Patient;
 
@@ -13,11 +13,9 @@ class ShowPatients extends Component
 
     public function render()
     {
-        $patients = Patient::where('name', 'LIKE', "%{$this->search}%")
-        ->limit($this->count)
-        ->get();
+        $patients = DB::select('SELECT patients.*,iFNULL(SUM(rest),0) as rest FROM `patients` LEFT JOIN invoices on patients.id = invoices.patient_id where `name` LIKE "%'.$this->search.'%" GROUP BY patients.id LIMIT '.$this->count.';');
         $all=Patient::count();
-        $countonsearch=$patients->count();
+        $countonsearch = count($patients);
         return view('livewire.show-patients',compact('patients','all','countonsearch'));
     }
 

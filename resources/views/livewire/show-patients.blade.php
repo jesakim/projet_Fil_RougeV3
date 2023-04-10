@@ -28,10 +28,10 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rest</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created At</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
@@ -49,10 +49,10 @@
                         <p class="text-xs font-weight-bold mb-0">{{$patient->phone}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">{{$patient->id}}</span>
+                        <span class="badge badge-sm bg-{{$patient->rest == 0 ? 'success' :( $patient->rest <= 200 ? 'warning' : 'danger')}}">{{$patient->rest}}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                        <span class="text-secondary text-xs font-weight-bold">{{date('d/m/y',strtotime($patient->created_at)) }}</span>
                       </td>
                       <td class="align-middle d-flex justify-content-center m-0">
                         <a href="{{route('patients.show',$patient->id)}}" class="btn btn-info m-0 me-2 text-white font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">

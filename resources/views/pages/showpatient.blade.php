@@ -7,10 +7,8 @@
         <i class="me-1 fa-solid fa-hospital-user"></i>
         Info
     </button> --}}
-    <button class="btn bg-success text-white m-1 text-nowrap">
-        <i class="me-1 fa-solid fa-coins"></i>
-        facture
-    </button>
+
+    <x-facture_modal :id="$patient->id" :services="$services"/>
     <x-make_ordonnance_modal :id="$patient->id" :drugs="$drugs"/>
     <x-make_reservation_modal :id="$patient->id"/>
 
@@ -107,7 +105,7 @@
 @endif
 
 <div class="row g-3 mt-3">
-<div class="col-12 d-none patientTab m-0" id="infoTab">
+<div class="col-12 patientTab m-0" id="infoTab">
     <div class="card">
     <div class="card-body">
     <p class="text-uppercase text-bold">Patient Information</p>
@@ -206,7 +204,7 @@
     </div>
 </div>
 
-<div class="col-12 patientTab m-0" id="ordonnacesTab">
+<div class="col-12 d-none patientTab m-0" id="ordonnacesTab">
     <div class="card mb-4">
     <div class="card-header pb-0">
     <h6>Ordonnances</h6>

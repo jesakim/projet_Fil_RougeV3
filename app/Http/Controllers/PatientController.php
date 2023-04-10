@@ -6,6 +6,7 @@ use App\Models\Patient;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Drug;
+use App\Models\Service;
 use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
@@ -45,7 +46,8 @@ class PatientController extends Controller
         // return $patient->reservations;
         $assurances = DB::table('assurances')->get();
         $drugs = Drug::all();
-        return view('pages.showpatient',compact('patient','assurances','drugs'));
+       $services = Service::all();
+        return view('pages.showpatient',compact('patient','assurances','drugs','services'));
     }
 
     /**
