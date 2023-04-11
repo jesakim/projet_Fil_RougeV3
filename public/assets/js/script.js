@@ -74,3 +74,12 @@ function receivedChanged(receivedPrice){
     document.getElementById('theRest').value = globalSelectedPrice - receivedPrice.value
 
 }
+
+
+    $(document).ready(function() {
+    $('.select2-select').select2({
+        placeholder: 'Select a patient',
+        allowClear : true,
+        // dropdownParent: $('#makeOrdonnances')
+    });
+});

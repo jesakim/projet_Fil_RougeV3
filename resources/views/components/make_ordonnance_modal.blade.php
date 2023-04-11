@@ -8,7 +8,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Patient</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Make ordonnance</h5>
           <button type="button" class="btn btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -17,8 +17,8 @@
             @if (isset($patients))
             <div class="">
                 <label for="exampleFormControlInput1" class="form-label">Select patient</label>
-                <select class="selectpicker" data-live-search="true" name="patient_id">
-                    <option value="Null" selected>Select patient</option>
+                <select class="select2-select" name="patient_id">
+                    <option value=""></option>
                     @foreach ($patients as $patient)
                     <option value="{{$patient->id}}">{{$patient->name}}</option>
                     @endforeach
@@ -32,7 +32,7 @@
 
             <div class="">
                 <label for="exampleFormControlInput1" class="form-label">Select Drugs</label>
-                <select class="selectpicker" data-live-search="true" name="drug_ids[]" multiple>
+                <select class="select2-select" name="drug_ids[]" multiple>
                     @foreach ($drugs as $drug)
                     <option value="{{$drug->id}}">{{$drug->name}}</option>
                     @endforeach

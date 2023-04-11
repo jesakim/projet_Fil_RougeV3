@@ -18,7 +18,7 @@
   <script src="https://kit.fontawesome.com/299e2ad6c6.js" crossorigin="anonymous"></script>  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -101,7 +101,7 @@
           </a>
         </li>
         <li class="nav-item">
-          {{-- <a class="nav-link " href="{{route('logout')}}"> --}}
+          <a class="nav-link " href="{{route('logout')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa-solid fa-arrow-right-from-bracket mb-1 text-warning text-sm opacity-10"></i>
             </div>
@@ -210,15 +210,15 @@
   </div>
   <!--   Core JS Files   -->
   @livewireScripts
-  <script src="../assets/js/core/popper.min.js"></script>
+  {{-- <script src="../assets/js/core/popper.min.js"></script> --}}
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  {{-- <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script> --}}
+  {{-- <script src="../assets/js/plugins/chartjs.min.js"></script> --}}
+  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> --}}
+  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script> --}}
   {{-- <script>
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
@@ -311,11 +311,14 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.4.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
   <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
   <script src="../assets/js/script.js"></script>
+
 </body>
 
 </html>

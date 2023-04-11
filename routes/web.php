@@ -32,6 +32,7 @@ Route::post('/signin',[UserController::class,'Signin'])->name('Signin');
 Route::get('/signin',[UserController::class,'showSignIn'])->name('showsignin');
 
 
+Route::middleware(['auth'])->group( function() {
 
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 Route::resource('patients',PatientController::class);
@@ -42,3 +43,7 @@ Route::post('ordonnances/{ordonnance}',[OrdonnanceController::class,'downloadPdf
 Route::resource('services',ServiceController::class);
 Route::resource('ordonnances',OrdonnanceController::class);
 Route::resource('invoice',InvoiceController::class);
+Route::controller(UserController::class)->group(function () {
+    Route::get('/logout', 'logout')->name('logout');
+});
+});

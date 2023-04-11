@@ -17,9 +17,10 @@
             <form action="{{route('invoice.store')}}" method="POST">
                 @csrf
             @if (isset($patients))
-            <div class="">
+            <div class="w-100">
                 <label for="exampleFormControlInput1" class="form-label">Select patient</label>
-                <select class="selectpicker" data-live-search="true" name="patient_id">
+                <select class="select2-select w-100" name="patient_id">
+                    <option value=""></option>
                     @foreach ($patients as $patient)
                     <option value="{{$patient->id}}">{{$patient->name}}</option>
                     @endforeach
@@ -66,16 +67,7 @@
   </div>
 
 
-  <style>
-    .dropdown-menu{
-        width: 100% !important;
-        min-width: unset !important;
-    }
-    .bootstrap-select{
-        width: 100% !important;
 
-    }
-</style>
 
 
 

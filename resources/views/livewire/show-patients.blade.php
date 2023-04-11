@@ -55,7 +55,7 @@
                         <span class="text-secondary text-xs font-weight-bold">{{date('d/m/y',strtotime($patient->created_at)) }}</span>
                       </td>
                       <td class="align-middle d-flex justify-content-center m-0">
-                        <a href="{{route('patients.show',$patient->id)}}" class="btn btn-info m-0 me-2 text-white font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <a href="{{route('patients.show',$patient->slug)}}" class="btn btn-info m-0 me-2 text-white font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           Show
                         </a>
                         @if (!$patient->iswaiting)

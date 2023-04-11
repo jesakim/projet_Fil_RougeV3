@@ -36,10 +36,6 @@
                 <h5 class="font-weight-bolder">
                   $53,000
                 </h5>
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+55%</span>
-                  since yesterday
-                </p>
               </div>
             </div>
             <div class="col-4 text-end">
@@ -61,10 +57,6 @@
                 <h5 class="font-weight-bolder">
                   2,300
                 </h5>
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+3%</span>
-                  since last week
-                </p>
               </div>
             </div>
             <div class="col-4 text-end">
@@ -86,10 +78,6 @@
                 <h5 class="font-weight-bolder">
                   +3,462
                 </h5>
-                <p class="mb-0">
-                  <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                  since last quarter
-                </p>
               </div>
             </div>
             <div class="col-4 text-end">
@@ -111,9 +99,6 @@
                 <h5 class="font-weight-bolder">
                   $103,430
                 </h5>
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
-                </p>
               </div>
             </div>
             <div class="col-4 text-end">
@@ -131,6 +116,12 @@
 @livewire('patient-waiting-list')
 
 
+{{-- <select  class="select2-select w-100">
+    <option value=""></option>
+    @foreach ($patients as $patient)
 
+    <option value="AL">{{$patient->name}}</option>
+    @endforeach
+  </select> --}}
 
 @endsection

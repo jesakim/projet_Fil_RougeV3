@@ -19,7 +19,8 @@
             @if (isset($patients))
             <div class="">
                 <label for="exampleFormControlInput1" class="form-label">Select patient</label>
-                <select class="selectpicker" data-live-search="true" name="patient_id">
+                <select class="select2-select" name="patient_id">
+                    <option value=""></option>
                     @foreach ($patients as $patient)
                     <option value="{{$patient->id}}">{{$patient->name}}</option>
                     @endforeach

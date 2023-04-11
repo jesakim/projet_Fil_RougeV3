@@ -53,7 +53,7 @@
         <td class="align-items-center text-center row row-cols-2 row-cols-lg-4 g-2 m-0">
             <div class="col">
 
-                <a href="{{route('patients.show',$waitingPatient->id)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
+                <a href="{{route('patients.show',$waitingPatient->slug)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
                     Show
                 </a>
             </div>
@@ -64,13 +64,13 @@
             </form>
             <div class="col">
 
-                <a href="{{route('patients.show',$waitingPatient->id)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
+                <a href="{{route('patients.show',$waitingPatient->slug)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
                     Show
                 </a>
             </div>
             <div class="col">
 
-                <a href="{{route('patients.show',$waitingPatient->id)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
+                <a href="{{route('patients.show',$waitingPatient->slug)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
                     Show
                 </a>
             </div>
