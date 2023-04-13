@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
-class UserController extends Controller
+class LoginController extends Controller
 {
     public function showSignIn(){
         return view('auth.signin');
@@ -23,11 +23,5 @@ class UserController extends Controller
     }
 
     return redirect()->back();
-    }
-
-
-    public function logout(){
-        Auth::logout();
-        return redirect('signin');
     }
 }

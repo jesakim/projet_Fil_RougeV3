@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DrugController;
 use App\Http\Controllers\InvoiceController;
@@ -7,8 +8,9 @@ use App\Http\Controllers\OrdonnanceController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +30,17 @@ Route::get('/', function () {
 
 
 // profile routes
-Route::post('/signin',[UserController::class,'Signin'])->name('Signin');
-Route::get('/signin',[UserController::class,'showSignIn'])->name('showsignin');
+Route::controller(ResetPasswordController::class)->group(function () {
+    Route::post('/resetpassword','resetPassword')->name('resetpassword');
+    Route::get('/resetpassword','showResetPassword')->name('showresetpassword');
+    Route::post('/enternewpassword','saveNewPassword')->name('savenewpassword');
+    Route::get('/enternewpassword','showSaveNewPassword')->name('showsavenewpassword');
+});
+
+Route::controller(LoginController::class)->group(function () {
+    Route::post('/signin','Signin')->name('Signin');
+    Route::get('/signin','showSignIn')->name('showsignin');
+});
 
 
 Route::middleware(['auth'])->group( function() {
@@ -43,7 +54,10 @@ Route::post('ordonnances/{ordonnance}',[OrdonnanceController::class,'downloadPdf
 Route::resource('services',ServiceController::class);
 Route::resource('ordonnances',OrdonnanceController::class);
 Route::resource('invoice',InvoiceController::class);
-Route::controller(UserController::class)->group(function () {
-    Route::get('/logout', 'logout')->name('logout');
-});
+Route::resource('assistant',AssistantController::class);
+Route::put('/assistant/activate/{user}',[AssistantController::class,'activate'])->name('assistant.activate');
+
+// logout route
+Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
+
 });

@@ -130,10 +130,4 @@
     </div>
   </div>
 
-  <form action="{{route('services.destroy',8)}}" method="post" id='deleteform'>
-    @csrf
-    @method('delete')
-    <button type="submit" class="btn btn-danger">Delete</button>
-  </form>
-
 @endsection
