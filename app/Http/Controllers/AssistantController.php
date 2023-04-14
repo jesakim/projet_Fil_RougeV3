@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -79,13 +80,14 @@ class AssistantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
-        //
+         User::destroy($user);
+         return redirect()->route('assistant.index');
     }
 
     public function activate(User $user){
-        $user->update([
+         $user->update([
             'isactive' => !$user->isactive,
         ]);
         return redirect()->back()->with('success','Assistant info updated successfully');

@@ -11,6 +11,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,9 +44,12 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 
-Route::middleware(['auth'])->group( function() {
+Route::middleware(['logout','auth'])->group( function() {
 
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+Route::get('/profile',[UserController::class,'index'])->name('profile');
+Route::put('/profile/{user}/changepass',[UserController::class,'changePassword'])->name('profile.changepassword');
+Route::put('/profile/{user}/changeinfo',[UserController::class,'changeInfo'])->name('profile.changeinfo');
 Route::resource('patients',PatientController::class);
 Route::resource('drugs',DrugController::class);
 Route::resource('reservations',ReservationController::class);

@@ -55,7 +55,12 @@ class InvoiceController extends Controller
      */
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)
     {
-        //
+        $invoice->update([
+            'rest'=>$invoice->rest - $request->given
+        ]);
+
+        return redirect()->back()->with('success','Invoice Updated successfully');
+
     }
 
     /**

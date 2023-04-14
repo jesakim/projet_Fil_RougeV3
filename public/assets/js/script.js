@@ -1,7 +1,7 @@
-function editPatient(elem){
+function editPatient(elem,inp = 'pat-int'){
     elem.classList.add('d-none')
     elem.nextElementSibling.classList.remove('d-none')
-    inputs = document.getElementsByClassName('pat-int')
+    inputs = document.getElementsByClassName(inp)
     Array.from(inputs).forEach(input => {
         input.removeAttribute('disabled')
 

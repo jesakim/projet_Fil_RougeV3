@@ -10,4 +10,9 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable=['patient_id','service_id','rest'];
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

@@ -47,7 +47,7 @@
           eventColor: '#5e73e4',
           contentHeight: '90vh',
           expandRows:false,
-          hiddenDays: [ 6],
+          hiddenDays: [ 0],
           dayHeaders:{ weekday: 'long' }
         });
         calendar.render();

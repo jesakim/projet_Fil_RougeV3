@@ -16,6 +16,7 @@ class PatientController extends Controller
      */
     public function index()
     {
+
         $assurances = DB::table('assurances')->get();
         return view('pages.patients',compact('assurances'));
     }
@@ -43,7 +44,6 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        // return $patient->reservations;
         $assurances = DB::table('assurances')->get();
         $drugs = Drug::all();
        $services = Service::all();

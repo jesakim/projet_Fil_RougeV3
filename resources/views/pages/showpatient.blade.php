@@ -2,7 +2,7 @@
 
 
 @section('content')
-<div class="d-flex flex-wrap align-items-center justify-content-end">
+<div class="d-flex flex-wrap align-items-center justify-content-end mb-1">
 {{-- <button class="btn bg-success text-white m-1 text-nowrap">
         <i class="me-1 fa-solid fa-hospital-user"></i>
         Info
@@ -14,32 +14,7 @@
 
  </div>
 
- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form action="{{route('reservations.store')}}" method="POST">
-                @csrf
-            <input type="hidden" name="patient_id" value="{{$patient->id}}">
-            <div class="">
-                <label for="exampleFormControlInput1" class="form-label">Reservation date</label>
-                <input type="datetime-local" class="form-control" id="exampleFormControlInput1" name='date'>
-              </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn bg-gradient-primary">Save changes</button>
-        </div>
-    </form>
-      </div>
-    </div>
-  </div>
+
 <div class="card-body bg-white p-3 rounded-3">
     <div class="row gx-4 align-items-center">
         <div class="col-auto">
@@ -294,13 +269,14 @@
     <thead>
     <tr>
     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Patient</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">rest</th>
+    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Service</th>
+    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date of creation</th>
     <th></th>
     </tr>
     </thead>
     <tbody>
-        @foreach ($patient->reservations->take(3) as $reservation)
+        @foreach ($patient->invoices as $invoice)
 
 
     <tr>
@@ -310,23 +286,33 @@
         </div>
         </td>
         <td>
-        <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($reservation->date)->format('d/m/Y')}} </p>
+        <span class="badge bg-gradient-{{$invoice->rest == 0 ? 'success' :( $invoice->rest <= 200 ? 'warning' : 'danger')}}"> {{$invoice->rest}}</span>
         </td>
         <td>
-        <span class="badge bg-gradient-{{strtotime($reservation->date)>time() ? 'warning' :( $reservation->didcome ? 'success' : 'danger')}}"> {{\Carbon\Carbon::parse($reservation->date)->diffForHumans()}}</span>
+            <span class="text-sm font-weight-bold mb-0"> {{$invoice->service->name}}</span>
+            </td>
+        <td>
+        <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($invoice->created_at)->format('d/m/Y')}} </p>
         </td>
-        <td class="">
-        @if(strtotime('today') == strtotime(\Carbon\Carbon::parse($reservation->date)->format('d-m-Y')) && !$reservation->didcome)
-        <div class=" d-flex align-items-center justify-content-end">
-            <form action="{{route('reservations.didcome',$reservation->id)}}" method="post">
+        <td class="d-flex justify-content-end">
+            <button class="btn btn-info text-center m-0" type="button" onclick="this.classList.add('d-none');this.nextElementSibling.classList.remove('d-none')">
+                +
+            </button>
+        <div class="d-none d-flex align-items-center justify-content-end">
+            <form action="{{route('invoice.update',$invoice->id)}}" method="post">
                 @csrf
                 @method('PUT')
-                <button class="btn btn-info m-0" type="submit">
-                    Did come
-                </button>
+                <div class="row col-12 f-flex">
+                    <div class="col-9">
+                        <input class=" form-control" min="0"  type="number" name="given">
+                    </div>
+
+                    <button class="col-3 btn btn-info text-center m-0" type="submit">
+                        +
+                    </button>
+                </div>
             </form>
         </div>
-            @endif
         </td>
     </tr>
     @endforeach

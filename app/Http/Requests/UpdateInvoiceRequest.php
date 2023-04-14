@@ -11,7 +11,7 @@ class UpdateInvoiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateInvoiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // dd($this),
+            'given'=>'required|numeric|min:0|max:'.$this->invoice->rest,
         ];
     }
 }

@@ -23,7 +23,7 @@ class StoreAssistantRequest extends FormRequest
     {
         return [
             'email'=>'required|string|unique:users,email|email',
-            'name'=>'required|string|unique:users,email'
+            'name'=>'required|string|unique:users,name'
         ];
     }
 }

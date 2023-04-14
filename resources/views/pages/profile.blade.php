@@ -67,16 +67,15 @@
 </div>
 @endif
 
-<div class="row g-3 mt-3">
-<div class="col-md-9 patientTab m-0" id="infoTab">
+<div class="row gy-3 mt-3">
+<div class="col-md-6 patientTab mt-3 m-0" id="infoTab">
     <div class="card">
     <div class="card-body">
-    <p class="text-uppercase text-bold">assistant Information</p>
+    <p class="text-uppercase text-bold">Information</p>
     <div class="row align-items-center">
-        <form action="{{route('assistant.update',$user->id)}}" method="post">
+        <form action="{{route('profile.changeinfo',$user->id)}}" method="post">
             @csrf
             @method('PUT')
-            <input type="hidden" value="{{$user->id}}" name="id">
             <div class="col">
                 <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Assistant name</label>
@@ -102,53 +101,47 @@
     </div>
 </div>
 
-<div class="col-md-3 m-0 mt-3">
-    <form action="{{route('assistant.activate',$user->id)}}" method="post">
-        @csrf
-        @method('PUT')
-        <button type="submit" class="btn btn-{{$user->isactive ? 'danger' : 'success'}} col-12">{{$user->isactive ? 'Deactivate' : 'Activate'}}</button>
-    </form>
-<button class="btn btn-danger col-12" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete Assistant</button>
-<button class="btn btn-success col-12">set active</button>
-
-</div>
-
-</div>
-{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
-<div class="form-group w-100">
-    <select class="selectpicker w-100" data-live-search="true">
-        @foreach ($assurances as $assurance)
-        <option value="{{$assurance->id}}" {{$assurance->id == $patient->assurance_id ? 'selected' : ''}}>{{$assurance->name}}</option>
-        @endforeach
-    </select>
-</div> --}}
-
-<div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
-      <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h6 class="modal-title text-danger" id="modal-title-notification">Would You like to delete this grug</h6>
-          </div>
-          <div class="modal-body p-0">
-            <div class="text-center p-0">
-                <i class="fa-solid text-danger fa-triangle-exclamation h1" style="font-size: 7rem;"></i>
-            </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-link ml-auto text-primary" data-bs-dismiss="modal">Close</button>
-              <form action="{{route('assistant.destroy',$user->id)}}" method="post" id='deleteform'>
+<div class="col-md-6 m-0 mt-3">
+    <div class="card">
+        <div class="card-body">
+        <p class="text-uppercase text-bold">Change Password</p>
+        <div class="row align-items-center">
+            <form action="{{route('profile.changepassword',$user->id)}}" method="post">
                 @csrf
-                @method('delete')
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
-          </div>
+                @method('PUT')
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label">Current password</label>
+                        <input class="form-control pass-int" type="password" disabled name="currentpass">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label  class="form-control-label">New password</label>
+                        <input class="form-control pass-int" type="password" disabled name="newpass">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label  class="form-control-label">new password confirmation</label>
+                        <input class="form-control pass-int" type="password" disabled name="newpass_confirmation">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mt-3 m-0">
+                        <button type="button" class="btn btn-primary w-100 m-0" onclick="editPatient(this,'pass-int')">Edit</button>
+                        <button type="submit" class="btn btn-primary w-100 d-none m-0">Save Changes</button>
+                    </div>
+                </div>
+            </form>
         </div>
-      </div>
+
+        </div>
+        </div>
 </div>
+
+</div>
+
 
 
 
