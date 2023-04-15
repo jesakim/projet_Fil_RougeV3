@@ -76,10 +76,20 @@ function receivedChanged(receivedPrice){
 }
 
 
-    $(document).ready(function() {
-    $('.select2-select').select2({
-        placeholder: 'Select a patient',
-        allowClear : true,
-        // dropdownParent: $('#makeOrdonnances')
+$(document).ready(function() {
+    elem = ['select2-makeReservation','select2-makeOrdonnances','select2-makeInvoice','mselect2-makeOrdonnances']
+    elem.forEach(ele => {
+        $('.'+ele).select2({
+            placeholder: ele.startsWith('m')  ? 'Select drugs' :'Select a patient',
+            allowClear : true,
+            dropdownParent: $('#'+ele.substr(ele.indexOf('-')+1, ele.length))
+        });
     });
+    $( ".select2-container" ).addClass( 'w-100 form-control p-1');
 });
+
+
+function pinSidenav(){
+    document.querySelector('body').classList.toggle('g-sidenav-pinned')
+}
+

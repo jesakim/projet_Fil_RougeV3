@@ -50,7 +50,7 @@
         <td class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
         </td>
-        <td class="align-items-center text-center row row-cols-2 row-cols-lg-4 g-2 m-0">
+        <td class="align-items-center justify-content-end text-center row row-cols-2 row-cols-lg-4 g-2 m-0">
             <div class="col">
 
                 <a href="{{route('patients.show',$waitingPatient->slug)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
@@ -62,18 +62,6 @@
                     Remove
                 </button>
             </form>
-            <div class="col">
-
-                <a href="{{route('patients.show',$waitingPatient->slug)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
-                    Show
-                </a>
-            </div>
-            <div class="col">
-
-                <a href="{{route('patients.show',$waitingPatient->slug)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
-                    Show
-                </a>
-            </div>
         </td>
     </tr>
     @endforeach

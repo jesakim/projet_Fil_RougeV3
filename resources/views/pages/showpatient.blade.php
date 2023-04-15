@@ -14,8 +14,8 @@
 
  </div>
 
-
-<div class="card-body bg-white p-3 rounded-3">
+<div class="card">
+<div class="card-body p-3 rounded-3">
     <div class="row gx-4 align-items-center">
         <div class="col-auto">
         <div class="avatar avatar-xl position-relative">
@@ -60,6 +60,7 @@
           <li class="patient-item ms-1" onclick="switchTab(this,'facturesTab')" >Factures</li>
         </ul>
       </nav>
+</div>
 </div>
 @if (session()->has('success'))
 <div class="alert alert-success  border-0 text-white m-0 mt-2" role="alert">

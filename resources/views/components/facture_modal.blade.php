@@ -19,7 +19,7 @@
             @if (isset($patients))
             <div class="w-100">
                 <label for="exampleFormControlInput1" class="form-label">Select patient</label>
-                <select class="select2-select w-100" name="patient_id">
+                <select class="select2-makeInvoice w-100" name="patient_id">
                     <option value=""></option>
                     @foreach ($patients as $patient)
                     <option value="{{$patient->id}}">{{$patient->name}}</option>

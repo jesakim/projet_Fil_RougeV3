@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('servbtn','active')
+@section('assisbtn','active')
 
 
 @section('content')

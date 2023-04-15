@@ -3,52 +3,30 @@
 
 @section('content')
 
- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form action="{{route('reservations.store')}}" method="POST">
-                @csrf
-            <input type="hidden" name="patient_id" value="{{$user->id}}">
-            <div class="">
-                <label for="exampleFormControlInput1" class="form-label">Reservation date</label>
-                <input type="datetime-local" class="form-control" id="exampleFormControlInput1" name='date'>
-              </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn bg-gradient-primary">Save changes</button>
-        </div>
-    </form>
-      </div>
-    </div>
-  </div>
-<div class="card-body bg-white p-3 rounded-3">
-    <div class="row gx-4 align-items-center">
+<div class="card">
+    <div class="card-body p-3">
+        <div class="row gx-4">
         <div class="col-auto">
-        <div class="avatar avatar-xl position-relative">
-        <img src="https://ui-avatars.com/api/?name={{$user->name}}&background=random&size=350&uppercase=false&font-size=0.5" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            <div class="avatar avatar-xl position-relative">
+                <img src="https://ui-avatars.com/api/?name={{$user->name}}&background=random&size=350&uppercase=false&font-size=0.5" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+        </div>
+        <div class="col-auto my-auto">
+            <div class="h-100">
+                <h5 class="mb-1">
+                    {{$user->name}}
+                </h5>
+                <p class="mb-0 font-weight-bold text-sm">
+                    {{$user->email}}
+                </p>
+            </div>
         </div>
         </div>
-    <div class="col-auto my-auto">
-        <div class="h-100">
-        <h5 class="mb-1">
-            {{$user->name}}
-        </h5>
-        <p class="mb-0 font-weight-bold text-sm">
-            {{$user->phone}}
-        </p>
-        </div>
-    </div>
-
     </div>
 </div>
+
+
+
 @if (session()->has('success'))
 <div class="alert alert-success  border-0 text-white m-0 mt-2" role="alert">
     {{ session()->get('success') }}

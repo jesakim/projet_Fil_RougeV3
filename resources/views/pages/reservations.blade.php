@@ -34,9 +34,9 @@
             @foreach ($reservations as $reservation)
 
             {
-              title: '| {{$reservation->name.$reservation->didcome}}',
+              title: '| {{$reservation->name}}',
               start: '{{$reservation->date}}',
-              url:'{{route("patients.show",$reservation->patient_id)}}',
+              url:'{{route("patients.show",$reservation->slug)}}',
               color: "{{strtotime($reservation->date)>time() ? '#ffc107' :( $reservation->didcome ? '#198754' : '#dc3545')}}",
             //   className: "{{strtotime($reservation->date)>time() ? 'text-warning' :( $reservation->didcome ? 'bg-success text-white' : 'bg-danger text-white')}}",
             },
@@ -77,5 +77,4 @@
         <div id='calendar'></div>
     </div>
 </div>
-
 @endsection

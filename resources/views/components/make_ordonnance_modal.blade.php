@@ -17,7 +17,7 @@
             @if (isset($patients))
             <div class="">
                 <label for="exampleFormControlInput1" class="form-label">Select patient</label>
-                <select class="select2-select" name="patient_id">
+                <select class="select2-makeOrdonnances" name="patient_id">
                     <option value=""></option>
                     @foreach ($patients as $patient)
                     <option value="{{$patient->id}}">{{$patient->name}}</option>
@@ -32,7 +32,7 @@
 
             <div class="">
                 <label for="exampleFormControlInput1" class="form-label">Select Drugs</label>
-                <select class="select2-select" name="drug_ids[]" multiple>
+                <select class="mselect2-makeOrdonnances" placeholder="test" name="drug_ids[]" multiple>
                     @foreach ($drugs as $drug)
                     <option value="{{$drug->id}}">{{$drug->name}}</option>
                     @endforeach

@@ -6,7 +6,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="makeReservation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="makeReservation" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -19,7 +19,7 @@
             @if (isset($patients))
             <div class="">
                 <label for="exampleFormControlInput1" class="form-label">Select patient</label>
-                <select class="select2-select" name="patient_id">
+                <select class="select2-makeReservation" name="patient_id">
                     <option value=""></option>
                     @foreach ($patients as $patient)
                     <option value="{{$patient->id}}">{{$patient->name}}</option>
@@ -44,14 +44,3 @@
     </div>
   </div>
 
-
-  <style>
-    .dropdown-menu{
-        width: 100% !important;
-        min-width: unset !important;
-    }
-    .bootstrap-select{
-        width: 100% !important;
-
-    }
-</style>
