@@ -16,6 +16,7 @@ class Patient extends Model
         'phone',
         'assurance_id',
         'iswaiting',
+        'isconfirmed'
     ];
 
     public function sluggable(): array

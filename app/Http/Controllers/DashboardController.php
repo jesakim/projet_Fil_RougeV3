@@ -27,6 +27,8 @@ class DashboardController extends Controller
         $drugs = Drug::all();
         $services = Service::all();
         $assistantsnumber = User::where('isactive','=',1)->count() -1;
-        return view('pages.dashboard',compact('patients','assurances','drugs','services','thisweekrevenue','todaysreservation','assistantsnumber'));
+        $patientsToBeConfirmed = Patient::where('isconfirmed',0)->get();
+
+        return view('pages.dashboard',compact('patients','assurances','drugs','services','thisweekrevenue','todaysreservation','assistantsnumber','patientsToBeConfirmed'));
     }
 }

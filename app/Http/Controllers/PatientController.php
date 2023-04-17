@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResFromLandingRequest;
 use App\Models\Patient;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Drug;
+use App\Models\Reservation;
 use App\Models\Service;
 use Illuminate\Support\Facades\DB;
 
@@ -74,5 +76,32 @@ class PatientController extends Controller
     public function destroy(Patient $patient)
     {
         //
+    }
+
+    public function resFromLanding(ResFromLandingRequest $request){
+        // return $request;
+       $patient = Patient::create([
+            'name'=>trim($request->fname .' '.$request->lname),
+            'phone'=>$request->phone,
+            'assurance_id'=>0,
+            'isconfirmed'=>0
+        ]);
+        if($request->res_date){
+           Reservation::create([
+                'patient_id'=>$patient->id,
+                'date'=>$request->res_date,
+            ]);
+        }
+
+        return redirect()->back();
+
+
+    }
+
+    public function comfirmPatient(Patient $patient){
+        $patient->update([
+            'isconfirmed'=>1
+        ]);
+        return back()->with('success','Patient confirmed successfully');
     }
 }

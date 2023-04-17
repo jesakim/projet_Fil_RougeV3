@@ -18,21 +18,29 @@
 <div class="card-body p-3 rounded-3">
     <div class="row gx-4 align-items-center">
         <div class="col-auto">
-        <div class="avatar avatar-xl position-relative">
-        <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            <div class="avatar avatar-xl position-relative">
+            <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
         </div>
+        <div class="col-auto my-auto">
+            <div class="h-100">
+            <h5 class="mb-1">
+                {{$patient->name}}
+            </h5>
+            <p class="mb-0 font-weight-bold text-sm">
+                {{$patient->phone}}
+            </p>
+            </div>
         </div>
-    <div class="col-auto my-auto">
-        <div class="h-100">
-        <h5 class="mb-1">
-            {{$patient->name}}
-        </h5>
-        <p class="mb-0 font-weight-bold text-sm">
-            {{$patient->phone}}
-        </p>
+        @if (!$patient->isconfirmed)
+        <div class="col-auto ms-auto">
+            <form action="{{route('comfirmpatient',$patient->slug)}}" method="post">
+                @csrf
+                @method('put')
+                <button type="submit" class="btn btn-danger">Confirm</button>
+            </form>
         </div>
-    </div>
-
+        @endif
     </div>
     <style>
         .patient-item.active{

@@ -51,6 +51,7 @@ Route::get('/profile',[UserController::class,'index'])->name('profile');
 Route::put('/profile/{user}/changepass',[UserController::class,'changePassword'])->name('profile.changepassword');
 Route::put('/profile/{user}/changeinfo',[UserController::class,'changeInfo'])->name('profile.changeinfo');
 Route::resource('patients',PatientController::class);
+Route::put('patients/{patient}/confirm',[PatientController::class,'comfirmPatient'])->name('comfirmpatient');
 Route::resource('drugs',DrugController::class);
 Route::resource('reservations',ReservationController::class);
 Route::put('reservations/{reservation}',[ReservationController::class,'didcome'])->name('reservations.didcome');
@@ -65,3 +66,6 @@ Route::put('/assistant/activate/{user}',[AssistantController::class,'activate'])
 Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
 
 });
+
+
+Route::post('/resfromlanding',[PatientController::class,'resFromLanding'])->name('resfromlanding');
