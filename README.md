@@ -18,7 +18,7 @@
 
 # Conception de l'application 
 ## Diagramme des classes
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Diagramme des classes](https://github.com/jesakim/projet_Fil_RougeV3/blob/main/MediSolutionUml/Screenshot%202023-04-19%20181821.png?raw=true)
 
 ## Diagramme des cas d'utilisation
 
