@@ -75,7 +75,9 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        //
+        $patient->delete();
+        return redirect()->route('patients.index');
+
     }
 
     public function resFromLanding(ResFromLandingRequest $request){

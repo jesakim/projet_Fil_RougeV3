@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('resbtn','active')
+@section('pageName','Reservations')
 
 
 @section('content')

@@ -1,5 +1,6 @@
 @extends('layouts.dashboard')
 
+@section('pageName','Profile')
 
 @section('content')
 

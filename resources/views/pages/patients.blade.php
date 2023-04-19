@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('patbtn','active')
+@section('pageName','Patients')
 
 @section('content')
 <!-- Button trigger modal -->

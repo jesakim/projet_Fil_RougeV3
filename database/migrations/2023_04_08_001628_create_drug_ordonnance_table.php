@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('drug_ordonnance', function (Blueprint $table) {
 
             $table->foreignId('drug_id')->constrained();
-            $table->foreignId('ordonnance_id')->constrained();
+            $table->foreignId('ordonnance_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@section('pageName','Assistant')
 
 
 @section('content')
@@ -108,24 +109,11 @@
         @method('PUT')
         <button type="submit" class="btn btn-{{$user->isactive ? 'danger' : 'success'}} col-12">{{$user->isactive ? 'Deactivate' : 'Activate'}}</button>
     </form>
-<button class="btn btn-danger col-12" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete Assistant</button>
-<button class="btn btn-success col-12">set active</button>
+    <button type="button" class="btn btn-danger col-12" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete Assistant</button>
 
 </div>
 
 </div>
-{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
-<div class="form-group w-100">
-    <select class="selectpicker w-100" data-live-search="true">
-        @foreach ($assurances as $assurance)
-        <option value="{{$assurance->id}}" {{$assurance->id == $patient->assurance_id ? 'selected' : ''}}>{{$assurance->name}}</option>
-        @endforeach
-    </select>
-</div> --}}
 
 <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
       <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">

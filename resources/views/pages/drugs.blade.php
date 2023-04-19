@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('drugbtn','active')
+@section('pageName','Drugs')
 
 @section('content')
 <div class="card card-frame ">

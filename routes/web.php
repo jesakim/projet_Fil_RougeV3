@@ -59,8 +59,11 @@ Route::post('ordonnances/{ordonnance}',[OrdonnanceController::class,'downloadPdf
 Route::resource('services',ServiceController::class);
 Route::resource('ordonnances',OrdonnanceController::class);
 Route::resource('invoice',InvoiceController::class);
-Route::resource('assistant',AssistantController::class);
-Route::put('/assistant/activate/{user}',[AssistantController::class,'activate'])->name('assistant.activate');
+
+Route::middleware(['isSuperAdmin'])->group( function() {
+    Route::resource('assistant',AssistantController::class);
+    Route::put('/assistant/activate/{user}',[AssistantController::class,'activate'])->name('assistant.activate');
+});
 
 // logout route
 Route::get('/logout', [LogoutController::class,'logout'])->name('logout');

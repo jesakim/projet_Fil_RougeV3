@@ -18,7 +18,7 @@ class AssistantController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('id','<>',Auth::id())->get();
         return view('pages.assistants',compact('users'));
     }
 
@@ -55,7 +55,7 @@ class AssistantController extends Controller
      */
     public function show($userid)
     {
-        $user = User::find($userid);
+        $user = User::findorfail($userid);
         return view('pages.showassistant',compact('user'));
     }
 

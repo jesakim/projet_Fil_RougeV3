@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('servbtn','active')
+@section('pageName','Services')
 
 
 @section('content')

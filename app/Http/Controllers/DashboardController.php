@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $tomorrow = Carbon::tomorrow();
         $weekStartDate = $now->startOfWeek()->format('Y-m-d H:i:s');
         $weekEndDate = $now->endOfWeek()->format('Y-m-d H:i:s');
-        $thisweekrevenue = DB::select('SELECT sum(price-rest) as thisweekrevenue FROM `invoices` join services ON services.id = invoices.service_id WHERE invoices.created_at BETWEEN ? and ?;',[$weekStartDate,$weekEndDate])[0]->thisweekrevenue;
+        $thisweekrevenue = DB::select('SELECT IFNULL(sum(price-rest),0) as thisweekrevenue FROM `invoices` join services ON services.id = invoices.service_id WHERE invoices.created_at BETWEEN ? and ?;',[$weekStartDate,$weekEndDate])[0]->thisweekrevenue;
         $todaysreservation = Reservation::whereBetween('date', [$today,$tomorrow])->count();
         $patients = Patient::all();
         $assurances = Assurance::all();

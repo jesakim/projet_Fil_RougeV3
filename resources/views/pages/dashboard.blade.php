@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('dashbtn','active')
+@section('pageName','Dashboard')
 
 @section('content')
 <!-- Button trigger modal -->
-<div class="mb-2 d-flex align-items-center justify-content-end">
+<div class="mb-2 d-flex flex-wrap align-items-center justify-content-end">
 
     <x-add_patients_modal :assurances="$assurances"/>
     <x-make_reservation_modal :patients="$patients"/>
@@ -175,11 +176,9 @@
     @empty
     <tr>
         <td></td>
-        <td></td>
         <td>
-            No Patients in waiting list
+            No Patients to be confirmed
         </td>
-        <td></td>
     </tr>
     @endforelse
 
