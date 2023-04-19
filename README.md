@@ -22,14 +22,14 @@
 
 ## Diagramme des cas d'utilisation
 
-![Logo](https://tools.wedevs.com/readme/assets/images/social-share.png)
+![Diagramme des cas d'utilisation](https://github.com/jesakim/projet_Fil_RougeV3/blob/main/MediSolutionUml/Screenshot%202023-04-19%20182441.png?raw=true)
 
 
 # La planification 
 
 Pour gérer efficacement les tâches de réalisation de mon projet, j'ai utilisé l'outil de gestion de projet Trello en suivant la méthode Agile. Cette approche itérative et collaborative m'a permis de planifier et de suivre la progression de chaque étape du projet de manière flexible et réactive, ici une capture d'écran de la planification : 
-
-![Logo](https://tools.wedevs.com/readme/assets/images/social-share.png)
+- [Lien vers Trello]([https://www.figma.com/file/mwr6ejgfiEuSGgDoG812WX/Untitled?node-id=0%3A1&t=glh3jqLIPvDAMYLx-1](https://trello.com/b/Du5jQcfS/medisolution))
+![planification](https://github.com/jesakim/projet_Fil_RougeV3/blob/main/MediSolutionUml/Screenshot%202023-04-19%20173058.png?raw=true)
 
 # Maquette
 
