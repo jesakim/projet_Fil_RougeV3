@@ -86,7 +86,8 @@ class PatientController extends Controller
             'name'=>trim($request->fname .' '.$request->lname),
             'phone'=>$request->phone,
             'assurance_id'=>0,
-            'isconfirmed'=>0
+            'isconfirmed'=>0,
+            'assurances_id'=>1
         ]);
         if($request->res_date){
            Reservation::create([

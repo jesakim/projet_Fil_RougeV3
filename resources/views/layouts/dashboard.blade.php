@@ -73,52 +73,81 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa-solid fa-tv mb-1 text-primary text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Dashboard</span>
+            <span class="nav-link-text ms-1">Tableau de bord</span>
           </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link @yield('patbtn')" href="{{route('patients.index')}}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="fa-solid fa-hospital-user mb-1 text-primary text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Patients</span>
+            </a>
+          </li>
         <li class="nav-item">
           <a class="nav-link @yield('resbtn')" href="{{route('reservations.index')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa-regular fa-calendar-days mb-1 text-primary text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Reservation</span>
+            <span class="nav-link-text ms-1">Rendez-vous</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link @yield('patbtn')" href="{{route('patients.index')}}">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa-solid fa-hospital-user mb-1 text-primary text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Patients</span>
-          </a>
-        </li>
-        @if (Auth::id()==1)
-        <li class="nav-item">
-          <a class="nav-link @yield('assisbtn')" href="{{route('assistant.index')}}">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa-regular fa-user mb-1 text-primary text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Assistants</span>
-          </a>
-        </li>
-        @endif
-        <li class="nav-item">
-            <a class="nav-link @yield('drugbtn')" href="{{route('drugs.index')}}">
+            <a class="nav-link @yield('resbtn')" href="{{route('reservations.index')}}">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="fa-solid fa-pills mb-1 text-primary text-sm opacity-10"></i>
+                <i class="fa-regular fa-calendar-minus mb-1 text-primary text-sm opacity-10"></i>
               </div>
-              <span class="nav-link-text ms-1">Drugs</span>
+              <span class="nav-link-text ms-1">Rendez-vous en ligne</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link @yield('servbtn')" href="{{route('services.index')}}">
+            <a class="nav-link @yield('resbtn')" href="{{route('reservations.index')}}">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="fa-solid fa-notes-medical mb-1 text-primary text-sm opacity-10"></i>
+                <i class="fa-solid fa-coins mb-1 text-primary text-sm opacity-10"></i>
               </div>
-              <span class="nav-link-text ms-1">Services</span>
+              <span class="nav-link-text ms-1">Comptabilité</span>
             </a>
           </li>
-        <li class="nav-item mt-3">
+          @if (Auth::id()==1)
+          <li class="nav-item">
+            <a data-bs-toggle="collapse" class="nav-link" href="#ParamétragePages" aria-controls="ParamétragePages" role="button" aria-expanded="false">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="fa-solid fa-sliders mb-1 text-primary text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Paramétrage</span>
+              </a>
+            <div class="collapse" id="ParamétragePages" style="">
+                <ul class="nav ">
+                    <li class="nav-item">
+                        <a class="nav-link @yield('assisbtn')" href="{{route('assistant.index')}}">
+                          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa-regular fa-user mb-1 text-primary text-sm opacity-10"></i>
+                          </div>
+                          <span class="nav-link-text ms-1">Assistants</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @yield('drugbtn')" href="{{route('drugs.index')}}">
+                          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-pills mb-1 text-primary text-sm opacity-10"></i>
+                          </div>
+                          <span class="nav-link-text ms-1">Drugs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link @yield('servbtn')" href="{{route('services.index')}}">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-notes-medical mb-1 text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Services</span>
+                    </a>
+                    </li>
+
+                </ul>
+            </div>
+            </li>
+        @endif
+        {{-- <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
@@ -136,7 +165,15 @@
             </div>
             <span class="nav-link-text ms-1">Log Out</span>
           </a>
-        </li>
+        </li> --}}
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-primary w-100 m-0" data-bs-toggle="modal" data-bs-target="#addPatient">
+                    Ajouter un patient
+                    <i class="fa-solid fa-user-plus ms-2"></i>
+                </button>
+            </div>
+          </li>
       </ul>
     </div>
   </aside>
@@ -174,11 +211,84 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         @yield('content')
+        <div class="modal fade" id="addPatient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ajouter un patient</h5>
+                  <button type="button" class="btn btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="{{route('patients.store')}}" method="post">
+                    @csrf
+                    <div class="row">
+                      <div class="form-group col-6">
+                        <label for="exampleFormControlInput1">Prénom <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="name" placeholder="Prénom">
+                      </div>
+                      <div class="form-group col-6">
+                        <label for="exampleFormControlInput1">Nom <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="name" placeholder="Nom">
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="exampleFormControlInput1">N° de téléphone <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" name="phone" placeholder="0606-060606" onkeyup="phoneFormate(this);">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="exampleFormControlInput1">CIN</label>
+                            <input type="text" class="form-control" name="phone" placeholder="BE252525">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="example-date-input" class="form-control-label">Date de naissance</label>
+                            <input class="form-control" type="date" value="2000-01-01" id="example-date-input">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="example-date-input" class="form-control-label">Genre</label>
+                            <div class="row ps-3">
+                        <div class="form-check mt-1 col-6">
+                            <input class="form-check-input" checked type="radio" name="gendre" id="customRadio1">
+                            <label class="custom-control-label m-0" for="customRadio1">Mâle <i class="fa-solid fa-mars"></i></label>
+                          </div>
+                          <div class="form-check mt-1 col-6">
+                            <input class="form-check-input" type="radio" name="gendre " id="customRadio2">
+                            <label class="custom-control-label m-0" for="customRadio2">Femelle <i class="fa-solid fa-venus"></i></label>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Patient assurance <span class="text-danger">*</span></label>
+                        <select class="form-control" name="assurance_id">
+                          <option value="">Sélectionner l'assurance du patient</option>
+                          <option value="1">Cnss</option>
+                          <option value="2">Cnops</option>
+                          <option value="3">Wafa assurance</option>
+                          {{-- @foreach ($assurances as $assurance)
+                            <option value="{{$assurance->id}}">{{$assurance->name}}</option>
+                          @endforeach --}}
+                        </select>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" value="1" checked name="iswaiting">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Ajouté à la salle d'attente</label>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+              </div>
+            </div>
+          </div>
     </div>
   </main>
   <!--   Core JS Files   -->
   @livewireScripts
-  {{-- <script src="../assets/js/core/popper.min.js"></script> --}}
+  <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   {{-- <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script> --}}
   {{-- <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script> --}}

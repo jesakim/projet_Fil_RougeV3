@@ -68,6 +68,18 @@
 
     <x-make_reservation_modal :patients="$patients"/>
 </div>
+@if ($errors->any())
+<div class="alert alert-danger border-0 alert-dismissible fade show my-2" role="alert">
+    <ul class="m-0">
+        @foreach ($errors->all() as $error)
+            <li class="text-white">{{ $error }}</li>
+        @endforeach
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
 <div class="card mb-4 p-2">
     <div class="card-header p-2 d-flex justify-content-between align-items-center">
         <div>

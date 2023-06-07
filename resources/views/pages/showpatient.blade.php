@@ -9,31 +9,49 @@
         Info
     </button> --}}
 
-    <x-facture_modal :id="$patient->id" :services="$services"/>
+    {{-- <x-facture_modal :id="$patient->id" :services="$services"/> --}}
     <x-make_ordonnance_modal :id="$patient->id" :drugs="$drugs"/>
-    <x-make_reservation_modal :id="$patient->id"/>
+    {{-- <x-make_reservation_modal :id="$patient->id"/> --}}
 
  </div>
 
 <div class="card">
+    <div class="dropdown position-absolute top-0 end-0">
+        <button class="btn btn-icon shadow-none  pt-2 px-2 m-0 mx-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="btn-inner--icon"><i class="fa-solid fa-ellipsis-vertical text-dark fs-5"></i></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><button class="btn w-100 shadow-none p-0 py-1 m-0 text-primary" type="button" ><i class="fas fa-user-edit me-2"></i> Modifier</button></li>
+          <li><button class="btn w-100 shadow-none p-0 py-1 m-0 text-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal-notification"><i class="fas fa-user-times me-2"></i>Archiver</button></li>
+        </ul>
+      </div>
 <div class="card-body p-3 rounded-3">
-    <div class="row gx-4 align-items-center">
-        <div class="col-auto">
+    <div class="d-flex align-items-center">
+        <div class="me-3">
             <div class="avatar avatar-xl position-relative">
             <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
             </div>
         </div>
-        <div class="col-auto my-auto">
-            <div class="h-100">
-            <h5 class="mb-1">
+
+        <div class="">
+            <h4 class="mb-1">
+                <i class="fa-solid fa-venus female me-1"></i>
                 {{$patient->name}}
-            </h5>
-            <p class="mb-0 font-weight-bold text-sm">
+            </h4>
+            <h6 class="mb-1 font-weight-bold ">
+                <i class="fa-solid text-primary fa-cake-candles me-1"></i>
+                12/12/2222 - 23 ans
+            </h6>
+            <a href="tel:{{$patient->phone}}" class="mb-1 font-weight-bold">
+                <i class="fa-solid text-primary fa-phone me-1"></i>
                 {{$patient->phone}}
-            </p>
+            </a>
+            <div class="mb-1 font-weight-bold d-flex align-items-center">
+                <i class="fa-solid text-primary fa-shield-heart me-1"></i>
+                <span class="badge rounded-pill py-1 px-2 bg-secondary">Cnss</span>
             </div>
         </div>
-        <div class="col-auto ms-auto me-0">
+        {{-- <div class="col-auto ms-auto me-0">
             <button type="button" class="btn btn-danger col-12" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete Patient</button>
 
             @if (!$patient->isconfirmed)
@@ -43,6 +61,28 @@
                     <button type="submit" class="btn btn-success w-100">Confirm</button>
                 </form>
             @endif
+        </div> --}}
+        <div class="ms-auto me-3">
+            <p class="mb-1 font-weight-bold text-sm">
+                <i class="fa-solid text-primary fa-user-plus"></i>
+                cree le : 12/12/1212
+            </p>
+            <p class="mb-1 font-weight-bold text-sm">
+                <i class="fa-solid text-primary fa-coins"></i>
+                Total à payer : <span class="text-dark fw-bolder">1000 Dhs</span>
+            </p>
+            <p class="mb-1 font-weight-bold text-sm">
+                <i class="fa-solid text-primary fa-hand-holding-dollar"></i>
+                Total reçu : <span class="text-success fw-bolder">250 Dhs</span>
+            </p>
+            <p class="mb-1 font-weight-bold text-sm">
+                <i class="fa-solid text-primary fa-coins"></i>
+                Total reste : <span class="text-danger fw-bolder">750 Dhs</span>
+            </p>
+            <p class="mb-1 font-weight-bold text-sm">
+                <i class="fa-regular fa-calendar text-primary"></i>
+                Le dernier rendez-vous : 12/12/1212
+            </p>
         </div>
     </div>
     <style>
@@ -62,15 +102,63 @@
             color: white;
 
                 }
+                .female{
+                    color: pink;
+                }
+                .dropdown-menu:not(.show){
+                    display: none;
+                }
+                .dropdown .dropdown-menu:before{
+                    content: '';
+                }
+                .tabBtn{
+                    /* color: black; */
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                }
+                .tabBtn:hover path, .tabBtn:hover{
+                    fill:#5E73E4;
+                    color: #5E73E4
+                }
+                .tabBtn .imgBtn{
+                    width: 30px;
+                    margin: 0;
+                }
+                .tabBtn.active{
+                    fill:#5E73E4;
+                    color: #5E73E4;
+                    border-bottom: solid 2px #5E73E4;
+                }
+                .tabBtn.active svg path{
+                    fill:#5E73E4;
+                }
+
     </style>
-    <nav aria-label="breadcrumb">
+    {{-- <nav aria-label="breadcrumb">
         <ul class="breadcrumb m-0">
           <li class="patient-item active" onclick="switchTab(this,'infoTab')">Info</li>
           <li class="patient-item ms-1" onclick="switchTab(this,'reservationsTab')" >Reservations</li>
           <li class="patient-item ms-1" onclick="switchTab(this,'ordonnacesTab')" >Ordonnances</li>
           <li class="patient-item ms-1" onclick="switchTab(this,'facturesTab')" >Factures</li>
         </ul>
-      </nav>
+      </nav> --}}
+</div>
+<div class="card-footer m-0 pt-0 px-2 pb-2 d-flex">
+    <div>
+        <span class="badge bg-success rounded-pill">Active</span>
+        <a href="https://wa.me/+2126{{substr($patient->phone,0,8)}}" target="_blank" class="btn btn-outline-success rounded-pill py-0 px-3 m-0">
+            <i class="fa-brands fa-whatsapp fs-4"></i>
+        </a>
+
+    </div>
+    <div class="ms-auto d-flex">
+    <button type="button" class="btn btn-primary btn-sm py-1 pe-3 ps-2 m-0 mx-1 rounded-pill"> <i class="fa-regular fa-calendar text-white me-1"></i> Nouveau RDV</button>
+    @livewire('patient-waiting-btn',['patient_id' => $patient->id])
+  </div>
 </div>
 </div>
 @if (session()->has('success'))
@@ -94,6 +182,50 @@
 <div class="row g-3 mt-3">
 <div class="col-12 patientTab m-0" id="infoTab">
     <div class="card">
+        <div class="card-header border-bottom border-secondary px-2 py-0 d-flex justify-content-between align-items-end">
+            <div class="tabBtn text-sm active" onclick="switchTab(this,'rgrg')">
+                @php
+                include('assets/img/icons/actes.svg');
+                @endphp
+                <span class="textBtn">Actes</span>
+            </div>
+            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+                @php
+                include('assets/img/icons/coins.svg');
+                @endphp
+                <span class="textBtn">Paiement</span>
+            </div>
+            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+                @php
+                include('assets/img/icons/calender.svg');
+                @endphp
+                <span class="textBtn">Render-vous</span>
+            </div>
+            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+                @php
+                include('assets/img/icons/prescription.svg');
+                @endphp
+                <span class="textBtn">Ordonnances</span>
+            </div>
+            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+                @php
+                include('assets/img/icons/invoice.svg');
+                @endphp
+                <span class="textBtn">Note d'honoraires</span>
+            </div>
+            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+                @php
+                include('assets/img/icons/health-data-security.svg');
+                @endphp
+                <span class="textBtn">Certificats médiceaux</span>
+            </div>
+            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+                @php
+                include('assets/img/icons/album.svg');
+                @endphp
+                <span class="textBtn">Imagery</span>
+            </div>
+          </div>
     <div class="card-body">
     <p class="text-uppercase text-bold">Patient Information</p>
     <div class="row align-items-center">
@@ -343,19 +475,20 @@
     <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h6 class="modal-title text-danger" id="modal-title-notification">Would You like to delete this grug</h6>
+          <h6 class="modal-title text-danger" id="modal-title-notification">Souhaitez-vous archiver ce patient ?</h6>
         </div>
-        <div class="modal-body p-0">
-          <div class="text-center p-0">
-              <i class="fa-solid text-danger fa-triangle-exclamation h1" style="font-size: 7rem;"></i>
+        <div class="modal-body p-3">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">préciser le motif de l'archivage:</label>
+            <input type="text" class="form-control is-invalid" id="exampleFormControlInput1" placeholder="le motif">
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-link ml-auto text-primary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-link ml-auto text-primary" data-bs-dismiss="modal">Fermer</button>
             <form action="{{route('patients.destroy',$patient->slug)}}" method="post" id='deleteform'>
               @csrf
               @method('delete')
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="submit" class="btn btn-danger">Archiver</button>
             </form>
         </div>
       </div>

@@ -30,39 +30,33 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rest</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created At</th>
-                      <th class="text-secondary opacity-7"></th>
+                      {{-- <th class="text-secondary opacity-7"></th> --}}
                     </tr>
                   </thead>
                   <tbody>
                     @foreach ($patients as $patient)
                     <tr>
                         <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{$patient->name}}</h6>
-                          </div>
-                        </div>
+                            <div class="d-flex">
+                                <div>
+                                  <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" class="avatar avatar-sm m-0">
+                                </div>
+                                <a href="{{route('patients.show',$patient->slug)}}" class="btn btn-link m-0 me-2 font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                    {{$patient->name}}
+                                  </a>
+                              </div>
+
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$patient->phone}}</p>
+                        <a href="https://wa.me/+2126{{substr($patient->phone,0,8)}}" target="_blank" class="text-xs font-weight-bold mb-0">{{$patient->phone}}</a>
                       </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-{{$patient->rest == 0 ? 'success' :( $patient->rest <= 200 ? 'warning' : 'danger')}}">{{$patient->rest}}</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{date('d/m/y',strtotime($patient->created_at)) }}</span>
-                      </td>
-                      <td class="align-middle d-flex justify-content-center m-0">
-                        <a href="{{route('patients.show',$patient->slug)}}" class="btn btn-info m-0 me-2 text-white font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Show
-                        </a>
+                      {{-- <td class="">
+
                         @if (!$patient->iswaiting)
 
                         <form wire:submit.prevent="addToWaitingList({{$patient->id}},1)" method="POST">
                             <button class="btn btn-success m-0 text-white font-weight-bold text-xs">
-                                Add
+                                Ajouté à la salle d'attente
                             </button>
                         </form>
 
@@ -70,13 +64,13 @@
 
                         <form wire:submit.prevent="addToWaitingList({{$patient->id}},0)" method="POST">
                             <button class="btn btn-danger m-0 text-white font-weight-bold text-xs" type="submit">
-                                Remove
+                                Retirer de la salle d'attente
                             </button>
                         </form>
 
 
                         @endif
-                      </td>
+                      </td> --}}
                     </tr>
                     @endforeach
 

@@ -33,7 +33,7 @@
             @endif
             <div class="">
                 <label for="exampleFormControlInput1" class="form-label">Reservation date</label>
-                <input type="datetime-local" class="form-control" id="exampleFormControlInput1" name='date'>
+                <input type="datetime-local" class="form-control" id="exampleFormControlInput1" min="{{date('Y-m-d')}}T00:00" name='date'>
               </div>
         </div>
         <div class="modal-footer">

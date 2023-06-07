@@ -37,11 +37,12 @@ class OrdonnanceController extends Controller
 
     public function downloadPdf(Ordonnance $ordonnance){
         // return view('pdf.ordonnance');
+        // return $ordonnance;
         $patientName = $ordonnance->patient->name;
         $drugs = $ordonnance->drugs()->pluck('name');
         $created_at = date('d/m/Y',strtotime($ordonnance->created_at));
         $pdf = PDF::loadView('pdf.ordonnance',
-        compact('patientName','drugs','created_at'))->setPaper('a5', 'portrait');
+        compact('patientName','drugs','created_at'))->setPaper('A5', 'portrait');
 
          return $pdf->stream();
     }

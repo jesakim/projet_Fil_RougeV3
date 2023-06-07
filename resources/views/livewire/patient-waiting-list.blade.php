@@ -23,24 +23,18 @@
         @forelse($waitingPatients as $waitingPatient)
 
     <tr>
-        <td>
+        <td class="p-0">
             <div class="d-flex px-2 py-1">
             <div class="d-flex flex-column justify-content-center">
-            <h6 class="mb-0 text-sm ps-2">{{$waitingPatient->name}}</h6>
+            <a href="{{route('patients.show',$waitingPatient->slug)}}" class="mb-0 btn btn-link p-0">{{$waitingPatient->name}}</a>
             </div>
             </div>
         </td>
-        <td>
+        <td  class="p-0">
             <p class="text-xs font-weight-bold mb-0">{{$waitingPatient->phone}}</p>
         </td>
-        <td class="align-items-center justify-content-end text-center row row-cols-2 row-cols-lg-4 g-2 m-0">
-            <div class="col">
-
-                <a href="{{route('patients.show',$waitingPatient->slug)}}" class="btn w-100 btn-info m-0 text-white font-weight-bold text-xs col" >
-                    Show
-                </a>
-            </div>
-            <form wire:submit.prevent="removeFromWaitingList({{$waitingPatient->id}})" method="POST"  class="col">
+        <td class="align-items-center justify-content-end text-center row row-cols-2 row-cols-lg-4 g-2 p-0 m-0">
+            <form wire:submit.prevent="removeFromWaitingList({{$waitingPatient->id}})" method="POST"  class="align-items-center m-2">
                 <button class="btn btn-danger text-center m-0 text-white font-weight-bold text-xs w-100">
                     Remove
                 </button>

@@ -43,13 +43,14 @@ Array.from(elem.parentElement.children).forEach(li => {
 });
 elem.classList.add('active')
 
- tabs = document.getElementsByClassName('patientTab');
- Array.from(tabs).forEach(tab => {
-    tab.classList.add('d-none')
+//  tabs = document.getElementsByClassName('patientTab');
+//  Array.from(tabs).forEach(tab => {
+//     tab.classList.add('d-none')
 
-});
-document.getElementById(tab).classList.remove('d-none');
+// });
+// document.getElementById(tab).classList.remove('d-none');
 }
+
 var globalSelectedPrice;
 function selecteService(elem){
     selectedPrice = elem.options[elem.selectedIndex].getAttribute('data-price');
@@ -92,4 +93,31 @@ $(document).ready(function() {
 function pinSidenav(){
     document.querySelector('body').classList.toggle('g-sidenav-pinned')
 }
+
+
+function phoneFormate(inp){
+    inp.value = inp.value.split("").map((e,i)=>{
+        if(i==4 && e != '-'){
+            return '-'+e;
+        }
+   else if( !isNaN( e ) || (e=='-' && i == 4)){
+        return e;
+   }else{
+    return '';
+   }
+}).join("");
+}
+
+
+function toggleDrugSelect(btn){
+    container = document.getElementById('drug_and_dose_container');
+    if(btn == 1){
+    clone = container.firstElementChild.cloneNode(true)
+    container.appendChild(clone)
+    }else if(btn == -1 && container.children.length >1){
+        container.removeChild(container.lastElementChild);
+    }
+    console.log(container.children.length);
+}
+
 

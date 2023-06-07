@@ -19,8 +19,8 @@ class PatientSeeder extends Seeder
 
         for ($i=0; $i < 10; $i++) {
             Patient::create([
-                'name' => Str::random(10),
-                'phone' => Str::random(10),
+                'name' => fake()->name(),
+                'phone' => fake()->numerify('06########'),
                 'assurance_id' => 1,
             ]);
         }

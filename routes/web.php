@@ -72,3 +72,5 @@ Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
 
 
 Route::post('/resfromlanding',[PatientController::class,'resFromLanding'])->name('resfromlanding');
+
+Route::get('/pdf/{ordonnance}',[OrdonnanceController::class,'downloadPdf'])->name('ordonnances.downloadPdf');

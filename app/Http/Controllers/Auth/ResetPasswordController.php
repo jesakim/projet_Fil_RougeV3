@@ -20,7 +20,7 @@ class ResetPasswordController extends Controller
     }
 
     public function resetPassword(ResetPasswordRequest $request){
-        if(DB::table('password_reset_tokens')->where('email',$request->email)->doesntExist()){
+        if(DB::table('password_reset_tokens')->where('email',$request->email)->doesntExist() || 1){
             $token = Str::random(64);
             Db::table('password_reset_tokens')->insert([
                 'email'=>$request->email,
@@ -32,7 +32,7 @@ class ResetPasswordController extends Controller
 
             $body = 'test';
             Mail::send('mails.resetpassword',['action_link'=>$action_link,'body'=>$body],function($message) use ($request){
-                $message->from('noreply@feane.com','laravel');
+                $message->from('noreply@sakim.me','laravel');
                 $message->to($request->email,'laravel')
                 ->subject('reset password');
             });
