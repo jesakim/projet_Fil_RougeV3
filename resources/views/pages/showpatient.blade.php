@@ -21,7 +21,7 @@
             <span class="btn-inner--icon"><i class="fa-solid fa-ellipsis-vertical text-dark fs-5"></i></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li><button class="btn w-100 shadow-none p-0 py-1 m-0 text-primary" type="button" ><i class="fas fa-user-edit me-2"></i> Modifier</button></li>
+          <li><button class="btn w-100 shadow-none p-0 py-1 m-0 text-primary" type="button" data-bs-toggle="modal" data-bs-target="#editPatient"><i class="fas fa-user-edit me-2"></i> Modifier</button></li>
           <li><button class="btn w-100 shadow-none p-0 py-1 m-0 text-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal-notification"><i class="fas fa-user-times me-2"></i>Archiver</button></li>
         </ul>
       </div>
@@ -48,7 +48,7 @@
             </a>
             <div class="mb-1 font-weight-bold d-flex align-items-center">
                 <i class="fa-solid text-primary fa-shield-heart me-1"></i>
-                <span class="badge rounded-pill py-1 px-2 bg-secondary">Cnss</span>
+                <span class="badge rounded-pill py-1 px-2 bg-secondary">{{$patient->assurance->name}}</span>
             </div>
         </div>
         {{-- <div class="col-auto ms-auto me-0">
@@ -136,7 +136,24 @@
                 .tabBtn.active svg path{
                     fill:#5E73E4;
                 }
+                .crown,.tooth,.root {
+                    stroke: #3b3b3b;
+                    stroke-width: .3px;
+                    stroke-linejoin: round;
+                    cursor: pointer;
+                }
 
+                .crown:hover,.tooth:hover,.root:hover {
+                    fill:#5E73E4;
+                }
+
+                .crown,.tooth{ fill: #f0f0f0; }
+
+                .root{ fill: #F2ECBE; }
+
+                /* .lower_schema{
+                    background-color:#5E73E4;
+                } */
     </style>
     {{-- <nav aria-label="breadcrumb">
         <ul class="breadcrumb m-0">
@@ -227,47 +244,60 @@
             </div>
           </div>
     <div class="card-body">
-    <p class="text-uppercase text-bold">Patient Information</p>
-    <div class="row align-items-center">
-        <form action="{{route('patients.update',$patient->id)}}" method="post">
-            @csrf
-            @method('PUT')
-            <div class="col">
-                <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Patient name</label>
-                    <input class="form-control pat-int" type="text" value="{{$patient->name}}" disabled name="name">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Patient phone</label>
-                    <input class="form-control pat-int " type="text" value="{{$patient->phone}}" disabled name="phone">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Patient assurance</label>
-                    <select class="form-control pat-int" id="exampleFormControlSelect1" disabled name="assurance_id">
-                        @foreach ($assurances as $assurance)
-                        <option value="{{$assurance->id}}" {{$assurance->id == $patient->assurance_id ? 'selected' : ''}}>{{$assurance->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group mt-3 m-0">
-                    <button type="button" class="btn btn-primary w-100 m-0" onclick="editPatient(this)">Edit</button>
-                    <button type="submit" class="btn btn-primary w-100 d-none m-0">Save Changes</button>
-                </div>
-            </div>
-        </form>
-    </div>
+        <div class="tooth_schemar d-flex overflow-auto">
+          <div class="mx-auto">
 
-    </div>
+          @php
+        include('assets/img/tooth_schema/upper-tooth.svg');
+        @endphp
+        <div class="d-flex w-100">
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">18</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">17</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">16</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">15</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">14</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">13</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">12</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">11</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">21</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">22</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">23</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">24</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">25</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">26</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">27</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">28</button>
+        </div>
+        <div class="d-flex w-100 justify-content-end">
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex" type="button">48</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex" type="button">47</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">46</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">45</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">44</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">43</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">42</button>
+            <button class="btn w-75 shadow-none p-0 m-0 text-primary justify-content-end d-flex pe-2" type="button">41</button>
+            <button class="btn w-75 shadow-none p-0 m-0 text-primary justify-content-start d-flex ps-2" type="button">31</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">32</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">33</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">34</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">35</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">36</button>
+            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex" type="button">37</button>
+            <button class="btn w-100 justify-content-center d-flex shadow-none p-0 m-0 text-primary" type="button">38</button>
+        </div>
+        @php
+        include('assets/img/tooth_schema/lower-tooth.svg');
+        @endphp
+          </div>
+
+        </div>
+
+        {{-- <img class='lower_schema' src="{{asset('assets/img/tooth_schema/lower-tooth.svg')}}" alt="" srcset=""> --}}
     </div>
 </div>
 
-<div class="col-12 d-none patientTab m-0" id="reservationsTab">
+{{-- <div class="col-12 d-none patientTab m-0" id="reservationsTab">
     <div class="card mb-4">
     <div class="card-header pb-0">
     <h6>Reservations</h6>
@@ -321,9 +351,9 @@
     </div>
     </div>
     </div>
-</div>
+</div> --}}
 
-<div class="col-12 d-none patientTab m-0" id="ordonnacesTab">
+{{-- <div class="col-12 d-none patientTab m-0" id="ordonnacesTab">
     <div class="card mb-4">
     <div class="card-header pb-0">
     <h6>Ordonnances</h6>
@@ -389,8 +419,6 @@
     <tr>
         <td></td>
         <td>No Ordonnance for this user to show</td>
-        {{-- <td></td> --}}
-        {{-- <td></td> --}}
     </tr>
     @endforelse
 
@@ -400,9 +428,9 @@
     </div>
     </div>
     </div>
-</div>
+</div> --}}
 
-<div class="col-12 d-none patientTab m-0" id="facturesTab">
+{{-- <div class="col-12 d-none patientTab m-0" id="facturesTab">
     <div class="card mb-4">
     <div class="card-header pb-0">
     <h6>Factures</h6>
@@ -467,7 +495,7 @@
     </div>
     </div>
     </div>
-</div>
+</div> --}}
 
 </div>
 
@@ -479,7 +507,7 @@
         </div>
         <div class="modal-body p-3">
           <div class="form-group">
-            <label for="exampleFormControlInput1">préciser le motif de l'archivage:</label>
+            <label for="exampleFormControlInput1">Préciser le motif de l'archivage:</label>
             <input type="text" class="form-control is-invalid" id="exampleFormControlInput1" placeholder="le motif">
           </div>
         </div>
@@ -494,6 +522,10 @@
       </div>
     </div>
 </div>
+@php
+    $modalId = "editPatient";
+@endphp
+<x-add_patients_modal :modalId='$modalId' :patient="$patient"/>
 
 
 

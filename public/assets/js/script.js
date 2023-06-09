@@ -19,11 +19,12 @@ function editServices(elem){
     elem.parentElement.previousElementSibling.previousElementSibling.children[0].classList.add('d-none')
 }
 
-function editDrug(elem){
-    elem.classList.add('d-none');
-    elem.nextElementSibling.classList.remove('d-none');
-    elem.parentElement.previousElementSibling.classList.remove('d-none');
-    elem.parentElement.parentElement.previousElementSibling.classList.add('d-none');
+function editDrug(drug){
+    console.log(drug);
+    // elem.classList.add('d-none');
+    // elem.nextElementSibling.classList.remove('d-none');
+    // elem.parentElement.previousElementSibling.classList.remove('d-none');
+    // elem.parentElement.parentElement.previousElementSibling.classList.add('d-none');
 }
 
 function deleteform(id){
@@ -112,12 +113,34 @@ function phoneFormate(inp){
 function toggleDrugSelect(btn){
     container = document.getElementById('drug_and_dose_container');
     if(btn == 1){
-    clone = container.firstElementChild.cloneNode(true)
+    clone = container.firstElementChild.cloneNode(true);
+    clone.getElementsByClassName('drugindexnumber')[0].textContent = container.children.length+1;
+    clone.getElementsByClassName('drugindexnumber')[1].textContent = container.children.length+1;
     container.appendChild(clone)
     }else if(btn == -1 && container.children.length >1){
         container.removeChild(container.lastElementChild);
     }
-    console.log(container.children.length);
 }
 
+if(document.contains(document.getElementById("ordopersodate_checkbox"))){
+
+
+document.getElementById("ordopersodate_checkbox").addEventListener("change", function(e) {
+if (this.checked) {
+    document.getElementById("ordopersodate").classList.remove('d-none');
+} else {
+    document.getElementById("ordopersodate").classList.add('d-none');
+}
+});
+}
+
+function drugSearch(inp){
+    Array.from(document.getElementsByClassName('drug-card')).forEach(card =>{
+        if(!card.getAttribute('data-search-name').toLocaleLowerCase().includes(inp.value.toLocaleLowerCase())){
+            card.classList.add('d-none')
+        }else{
+            card.classList.remove('d-none')
+        };
+    })
+}
 

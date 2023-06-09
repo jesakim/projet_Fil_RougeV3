@@ -47,4 +47,8 @@ class Patient extends Model
     {
         return $this->hasMany(Invoice::class);
     }
+    public function assurance()
+    {
+        return $this->belongsTo(Assurance::class);
+    }
 }

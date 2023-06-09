@@ -5,8 +5,11 @@
 
 
 @section('content')
+<div class="d-flex">
+    <button type="submit" class="btn btn-success m-0 ms-auto" data-bs-toggle="modal" data-bs-target="#addAssistantModal">Ajouter un(e) assistant(e)</button>
+</div>
 
-<div class="card card-frame ">
+{{-- <div class="card card-frame ">
     <div class="card-body">
         <form action="{{route('assistant.store')}}" method="post">
             @csrf
@@ -28,9 +31,38 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 
-
+<div class="modal fade" id="addAssistantModal" tabindex="-1" role="dialog" aria-labelledby="addAssistantModal" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="modal-title-notification">Ajouter un(e) assistant(e)</h6>
+        </div>
+        <div class="modal-body">
+            <form action="{{route('assistant.store')}}" method="post">
+                @csrf
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Le prenom</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="prenom" name="fname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Le nom</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="nom" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">L'email</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="assistant@gmail.com" name="email">
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link m-0  text-danger" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary m-0">Ajouter</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
 @if (session()->has('success'))
 <div class="alert alert-info border-0 text-white m-0 mt-2" role="alert">
     {{ session()->get('success') }}

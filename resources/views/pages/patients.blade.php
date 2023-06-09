@@ -6,7 +6,7 @@
 @section('content')
 <!-- Button trigger modal -->
 <div class="w-100 d-flex justify-content-end mb-1">
-    <x-add_patients_modal :assurances="$assurances"/>
+    {{-- <x-add_patients_modal :assurances="$assurances"/> --}}
 </div>
 
 @if ($errors->any())
