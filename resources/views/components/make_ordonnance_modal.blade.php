@@ -1,5 +1,5 @@
-<button type="button" class="btn btn-success m-0 mx-1" data-bs-toggle="modal" data-bs-target="#makeOrdonnances">
-    make ordonnance
+<button type="button" class="btn btn-success btn-sm py-1 px-2 m-0 mx-1 rounded-pill" data-bs-toggle="modal" data-bs-target="#makeOrdonnances">
+    Créer une ordonnance
 </button>
 
 <!-- Modal -->

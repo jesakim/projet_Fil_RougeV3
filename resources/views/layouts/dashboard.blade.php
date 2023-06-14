@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {{-- <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png"> --}}
+  <link rel="icon" type="image/png" href='{{asset('assets/img/logos/toothLogo.svg')}}' sizes="32x32">
   <title>
     Dashboard
   </title>
@@ -91,7 +92,7 @@
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link @yield('resbtn')" href="{{route('reservations.index')}}">
+            <a class="nav-link @yield('onlineresbtn')" href="{{route('rendez-vous-enligne.index')}}">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="fa-regular fa-calendar-minus mb-1 text-primary text-sm opacity-10"></i>
               </div>
@@ -99,7 +100,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link @yield('resbtn')" href="{{route('reservations.index')}}">
+            <a class="nav-link @yield('comptabtn')" href="{{route('Comptabilité.index')}}">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="fa-solid fa-coins mb-1 text-primary text-sm opacity-10"></i>
               </div>

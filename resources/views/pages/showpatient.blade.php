@@ -10,7 +10,6 @@
     </button> --}}
 
     {{-- <x-facture_modal :id="$patient->id" :services="$services"/> --}}
-    <x-make_ordonnance_modal :id="$patient->id" :drugs="$drugs"/>
     {{-- <x-make_reservation_modal :id="$patient->id"/> --}}
 
  </div>
@@ -36,11 +35,11 @@
         <div class="">
             <h4 class="mb-1">
                 <i class="fa-solid fa-venus female me-1"></i>
-                {{$patient->name}}
+                {{$patient->fname.' '.$patient->name}}
             </h4>
             <h6 class="mb-1 font-weight-bold ">
                 <i class="fa-solid text-primary fa-cake-candles me-1"></i>
-                12/12/2222 - 23 ans
+                {{$patient->birth_date ? $patient->birth_date ." - ".\Carbon\Carbon::parse($patient->birth_date)->age .' ans' : 'Date de naissance'}}
             </h6>
             <a href="tel:{{$patient->phone}}" class="mb-1 font-weight-bold">
                 <i class="fa-solid text-primary fa-phone me-1"></i>
@@ -48,7 +47,7 @@
             </a>
             <div class="mb-1 font-weight-bold d-flex align-items-center">
                 <i class="fa-solid text-primary fa-shield-heart me-1"></i>
-                <span class="badge rounded-pill py-1 px-2 bg-secondary">{{$patient->assurance->name}}</span>
+                <span class="badge rounded-pill py-1 px-2 bg-secondary">{{$patientinfo->assurance_name}}</span>
             </div>
         </div>
         {{-- <div class="col-auto ms-auto me-0">
@@ -62,10 +61,10 @@
                 </form>
             @endif
         </div> --}}
-        <div class="ms-auto me-3">
+        <div class="ms-auto">
             <p class="mb-1 font-weight-bold text-sm">
                 <i class="fa-solid text-primary fa-user-plus"></i>
-                cree le : 12/12/1212
+                cree le : {{\Carbon\Carbon::parse($patient->created_at)->format('d/m/y')}}
             </p>
             <p class="mb-1 font-weight-bold text-sm">
                 <i class="fa-solid text-primary fa-coins"></i>
@@ -81,7 +80,7 @@
             </p>
             <p class="mb-1 font-weight-bold text-sm">
                 <i class="fa-regular fa-calendar text-primary"></i>
-                Le dernier rendez-vous : 12/12/1212
+                Le dernier rendez-vous : {{$patientinfo->lastreservation ? \Carbon\Carbon::parse($patientinfo->lastreservation)->format('d/m/y H:i'):'Aucun'}}
             </p>
         </div>
     </div>
@@ -154,6 +153,22 @@
                 /* .lower_schema{
                     background-color:#5E73E4;
                 } */
+                #tooth-btn{
+                    position: relative;
+                }
+                #tooth-btn.active::after{
+                    background-color: greenyellow;
+                    width: 7px;
+                    height: 7px;
+                    content: '';
+                    color: #f0f0f0;
+                    position: absolute;
+                    border-radius: 50%;
+                    top: 0;
+                    right: 7px
+
+
+                }
     </style>
     {{-- <nav aria-label="breadcrumb">
         <ul class="breadcrumb m-0">
@@ -197,40 +212,40 @@
 @endif
 
 <div class="row g-3 mt-3">
-<div class="col-12 patientTab m-0" id="infoTab">
+<div class="col-12 m-0">
     <div class="card">
         <div class="card-header border-bottom border-secondary px-2 py-0 d-flex justify-content-between align-items-end">
-            <div class="tabBtn text-sm active" onclick="switchTab(this,'rgrg')">
+            <div class="tabBtn text-sm active" onclick="switchTab(this,'actesTab')">
                 @php
                 include('assets/img/icons/actes.svg');
                 @endphp
                 <span class="textBtn">Actes</span>
             </div>
-            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+            <div class="tabBtn text-sm" onclick="switchTab(this,'paymentTab')">
                 @php
                 include('assets/img/icons/coins.svg');
                 @endphp
                 <span class="textBtn">Paiement</span>
             </div>
-            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+            <div class="tabBtn text-sm" onclick="switchTab(this,'reservationTab')">
                 @php
                 include('assets/img/icons/calender.svg');
                 @endphp
                 <span class="textBtn">Render-vous</span>
             </div>
-            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+            <div class="tabBtn text-sm" onclick="switchTab(this,'ordoTab')">
                 @php
                 include('assets/img/icons/prescription.svg');
                 @endphp
                 <span class="textBtn">Ordonnances</span>
             </div>
-            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+            <div class="tabBtn text-sm" onclick="switchTab(this,'notesTab')">
                 @php
                 include('assets/img/icons/invoice.svg');
                 @endphp
                 <span class="textBtn">Note d'honoraires</span>
             </div>
-            <div class="tabBtn text-sm" onclick="switchTab(this,'rgrg')">
+            <div class="tabBtn text-sm" onclick="switchTab(this,'certifTab')">
                 @php
                 include('assets/img/icons/health-data-security.svg');
                 @endphp
@@ -242,261 +257,346 @@
                 @endphp
                 <span class="textBtn">Imagery</span>
             </div>
-          </div>
-    <div class="card-body">
-        <div class="tooth_schemar d-flex overflow-auto">
-          <div class="mx-auto">
-
-          @php
-        include('assets/img/tooth_schema/upper-tooth.svg');
-        @endphp
-        <div class="d-flex w-100">
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">18</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">17</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">16</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">15</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">14</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">13</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">12</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">11</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">21</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">22</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">23</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">24</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">25</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">26</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">27</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary" type="button">28</button>
         </div>
-        <div class="d-flex w-100 justify-content-end">
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex" type="button">48</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex" type="button">47</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">46</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">45</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">44</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">43</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end d-flex" type="button">42</button>
-            <button class="btn w-75 shadow-none p-0 m-0 text-primary justify-content-end d-flex pe-2" type="button">41</button>
-            <button class="btn w-75 shadow-none p-0 m-0 text-primary justify-content-start d-flex ps-2" type="button">31</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">32</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">33</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">34</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">35</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start d-flex" type="button">36</button>
-            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex" type="button">37</button>
-            <button class="btn w-100 justify-content-center d-flex shadow-none p-0 m-0 text-primary" type="button">38</button>
-        </div>
-        @php
-        include('assets/img/tooth_schema/lower-tooth.svg');
-        @endphp
-          </div>
+        <div class="card-body px-3 py-1">
+            <section class="patientTab" id="actesTab">
+                <div class="m-0 d-flex justify-content-end">
+                    <x-new_acte_modal :id="$patient->id" :services="$services"/>
+                </div>
+                <div class="tooth_schemar d-flex overflow-auto">
+                        <div class="mx-auto">
 
-        </div>
+                        @php
+                        include('assets/img/tooth_schema/upper-tooth.svg');
+                        @endphp
+                        <div class="d-flex w-100">
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary active" id="tooth-btn" type="button">18</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">17</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">16</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">15</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">14</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">13</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">12</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">11</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">21</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">22</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">23</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">24</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">25</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">26</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">27</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary" id="tooth-btn" type="button">28</button>
+                        </div>
+                        <div class="d-flex w-100 justify-content-end">
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex active"      id="tooth-btn" type="button">48</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex"      id="tooth-btn" type="button">47</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end    d-flex"      id="tooth-btn" type="button">46</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end    d-flex"      id="tooth-btn" type="button">45</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end    d-flex"      id="tooth-btn" type="button">44</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end    d-flex"      id="tooth-btn" type="button">43</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-end    d-flex"      id="tooth-btn" type="button">42</button>
+                            <button class="btn w-75  shadow-none p-0 m-0 text-primary justify-content-end    d-flex pe-2" id="tooth-btn" type="button">41</button>
+                            <button class="btn w-75  shadow-none p-0 m-0 text-primary justify-content-start  d-flex ps-2" id="tooth-btn" type="button">31</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start  d-flex"      id="tooth-btn" type="button">32</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start  d-flex"      id="tooth-btn" type="button">33</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start  d-flex"      id="tooth-btn" type="button">34</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start  d-flex"      id="tooth-btn" type="button">35</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-start  d-flex"      id="tooth-btn" type="button">36</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex"      id="tooth-btn" type="button">37</button>
+                            <button class="btn w-100 shadow-none p-0 m-0 text-primary justify-content-center d-flex"      id="tooth-btn" type="button">38</button>
+                        </div>
+                        @php
+                        include('assets/img/tooth_schema/lower-tooth.svg');
+                        @endphp
+                        </div>
 
-        {{-- <img class='lower_schema' src="{{asset('assets/img/tooth_schema/lower-tooth.svg')}}" alt="" srcset=""> --}}
-    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dents</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Acte</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Prix</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Reçu</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Reste</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Statut</th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for ($i=0;$i<10;$i++)
+
+                        <tr>
+                            <td class="py-0">
+                                <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                            </td>
+                            <td  class="py-0">
+                                <p class="text-xs text-dark font-weight-bold mb-0">25,24</p>
+                            </td>
+                            <td  class="py-0">
+                                <p class="text-xs d-flex align-items-center text-dark font-weight-bold mb-0">Couronnes jacket céramo-métal <i class="fa-solid fa-comment-medical text-info fs-5 ms-1 pe-auto" title="Couronnes jacket céramo-métal " style="cursor: help;"></i></p>
+
+                            </td>
+                            <td class="py-0">
+                                <p class="text-xs text-dark font-weight-bold mb-0">500</p>
+                            </td>
+                            <td  class="py-0">
+                                <p class="text-xs text-success font-weight-bold mb-0">300</p>
+                            </td>
+                            <td  class="py-0">
+                                <p class="text-xs text-warning font-weight-bold mb-0">200</p>
+                            </td>
+                            <td  class="py-0">
+                                <p class=" m-0 badge bg-primary">En cours</p>
+                            </td>
+
+                            <td class="py-0">
+                                <div class="w-100">
+
+                                    <button type="button" class="btn btn-secondary btn-sm m-0 px-2 py-1">
+                                        <i class="fa-solid fa-coins m-0"></i>
+                                        Ajouter un payment
+                                    </button>
+                                    <button class="btn btn-link text-secondary mb-0">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @endfor
+                    </tbody>
+                    </table>
+                </div>
+            </section>
+            <section  class="patientTab d-none" id="paymentTab">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Acte</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Montant</th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for ($i=0;$i<10;$i++)
+                        <tr>
+                        <td class="py-0">
+                            <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                        </td>
+                        <td  class="py-0">
+                            <p class="text-xs text-dark font-weight-bold mb-0">Couronnes jacket céramo-métal</p>
+                        </td>
+                        <td class="py-0">
+                            <p class="text-xs text-success font-weight-bold mb-0">500</p>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger btn-sm m-0 px-2 py-1">
+                                    Supprimer
+                                </button>
+                            </div>
+                        </td>
+                        </tr>
+                        @endfor
+                    </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="patientTab d-none" id="reservationTab">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center justify-content-center mb-0 ">
+                <thead>
+                <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach ($patient->reservations as $reservation)
+
+
+                <tr>
+                    <td>
+                    <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($reservation->date)->format('d/m/y H:i')}} </p>
+                    </td>
+                    <td>
+                    <span class="badge bg-{{strtotime($reservation->date)>time() ? 'warning' :( $reservation->didcome ? 'success' : 'danger')}}"> {{ \Carbon\Carbon::parse($reservation->date)->diffForHumans()}}</span>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-info btn-sm m-0 me-1 px-2 py-1">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                Modifier
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm m-0 px-2 py-1">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                Annuler
+                            </button>
+                        </div>
+
+                    </td>
+                </tr>
+                @endforeach
+
+
+                </tbody>
+                </table>
+                </div>
+            </section>
+            <section class="patientTab d-none" id="ordoTab">
+                <div class="m-0 d-flex justify-content-end">
+                    <x-make_ordonnance_modal :id="$patient->id" :drugs="$drugs"/>
+                </div>
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center justify-content-center mb-0 ">
+                <thead>
+                <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Les médicaments</th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    @forelse($patient->ordonnances as $ordonnance)
+                <tr>
+                    <td>
+                    <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($ordonnance->created_at)->format('d/m/Y')}} </p>
+                    </td>
+                    <td>
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <button class="btn btn-primary btn-sm m-0 px-2 py-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$loop->index}}" aria-expanded="false" aria-controls="collapse{{$loop->index}}">
+                                    <i class="fa-solid fa-pills me-1"></i>
+                                    <span class="btn-inner--text">Les médicaments</span>
+                                    <i class="ms-3 fa-solid fa-chevron-down"></i>
+                                </button>
+                                <div id="collapse{{$loop->index}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body p-0 pt-1">
+                                    <ul class="text-dark m-0 ps-4">
+                                        @foreach ($ordonnance->drugs as $drug)
+
+                                        <li>{{$drug->name}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </td>
+                    <td class="">
+                    <div class=" d-flex align-items-center justify-content-end">
+                        <form action="{{route('ordonnances.downloadPdf',$ordonnance->id)}}" method="post">
+                            @csrf
+                            <button class="btn btn-info btn-sm m-0 px-2 py-1" type="submit">
+                                <i class="fa-solid fa-file-pdf me-1"></i>
+                                Afficher
+                            </button>
+                        </form>
+                    </div>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td></td>
+                    <td>Aucune Ordonnance pour {{$patient->name}}</td>
+                </tr>
+                @endforelse
+
+
+                </tbody>
+                </table>
+                </div>
+            </section>
+            <section class="patientTab d-none" id="notesTab">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Montant</th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for ($i=0;$i<10;$i++)
+                        <tr>
+                        <td class="py-0">
+                            <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                        </td>
+                        <td class="py-0">
+                            <p class="text-xs text-success font-weight-bold mb-0">500</p>
+                        </td>
+                        <td>
+                            <div class=" d-flex align-items-center justify-content-end">
+                                <form action="{{route('ordonnances.downloadPdf',3)}}" method="post">
+                                    @csrf
+                                    <button class="btn btn-info btn-sm m-0 px-2 py-1" type="submit">
+                                    <i class="fa-solid fa-file-pdf me-1"></i>
+                                        Afficher
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        </tr>
+                        @endfor
+                    </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="patientTab d-none" id="certifTab">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date de création</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date début</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date fin</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">durée</th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for ($i=0;$i<10;$i++)
+                        <tr>
+                        <td class="py-0">
+                            <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                        </td>
+                        <td class="py-0">
+                            <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                        </td>
+                        <td class="py-0">
+                            <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                        </td>
+                        <td class="py-0">
+                            <p class="text-xs text-dark font-weight-bold mb-0">3 jour</p>
+                        </td>
+                        <td>
+                            <div class=" d-flex align-items-center justify-content-end">
+                                <form action="{{route('ordonnances.downloadPdf',3)}}" method="post">
+                                    @csrf
+                                    <button class="btn btn-info btn-sm m-0 px-2 py-1" type="submit">
+                                    <i class="fa-solid fa-file-pdf me-1"></i>
+                                        Afficher
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        </tr>
+                        @endfor
+                    </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
 </div>
-
-{{-- <div class="col-12 d-none patientTab m-0" id="reservationsTab">
-    <div class="card mb-4">
-    <div class="card-header pb-0">
-    <h6>Reservations</h6>
-    </div>
-    <div class="card-body p-0">
-    <div class="table-responsive p-0">
-     <table class="table align-items-center justify-content-center mb-0 ">
-    <thead>
-    <tr>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Patient</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-    <th></th>
-    </tr>
-    </thead>
-    <tbody>
-        @foreach ($patient->reservations as $reservation)
-
-
-    <tr>
-        <td>
-        <div class="d-flex ps-3">
-        <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" class="avatar avatar-sm rounded">
-        </div>
-        </td>
-        <td>
-        <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($reservation->date)->format('d/m/Y')}} </p>
-        </td>
-        <td>
-        <span class="badge bg-gradient-{{strtotime($reservation->date)>time() ? 'warning' :( $reservation->didcome ? 'success' : 'danger')}}"> {{\Carbon\Carbon::parse($reservation->date)->diffForHumans()}}</span>
-        </td>
-        <td class="">
-        @if(strtotime('today') == strtotime(\Carbon\Carbon::parse($reservation->date)->format('d-m-Y')) && !$reservation->didcome)
-        <div class=" d-flex align-items-center justify-content-end">
-            <form action="{{route('reservations.didcome',$reservation->id)}}" method="post">
-                @csrf
-                @method('PUT')
-                <button class="btn btn-info m-0" type="submit">
-                    Did come
-                </button>
-            </form>
-        </div>
-            @endif
-        </td>
-    </tr>
-    @endforeach
-
-
-    </tbody>
-    </table>
-    </div>
-    </div>
-    </div>
-</div> --}}
-
-{{-- <div class="col-12 d-none patientTab m-0" id="ordonnacesTab">
-    <div class="card mb-4">
-    <div class="card-header pb-0">
-    <h6>Ordonnances</h6>
-    </div>
-    <div class="card-body p-0">
-    <div class="table-responsive p-0">
-     <table class="table align-items-center justify-content-center mb-0 ">
-    <thead>
-    <tr>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Patient</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-    <th></th>
-    </tr>
-    </thead>
-    <tbody>
-        @forelse($patient->ordonnances as $ordonnance)
-    <tr>
-        <td>
-        <div class="d-flex ps-3">
-        <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" class="avatar avatar-sm rounded">
-        </div>
-        </td>
-        <td>
-        <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($ordonnance->created_at)->format('d/m/Y')}} </p>
-        </td>
-        <td>
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="btn btn-icon btn-3 btn-primary m-0 " type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$loop->index}}" aria-expanded="false" aria-controls="collapse{{$loop->index}}">
-                        <span class="btn-inner--text">Ordonnance Drugs</span>
-                        <i class="ms-3 fa-solid fa-chevron-down"></i>
-                    </button>
-                  </h2>
-                  <div id="collapse{{$loop->index}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body p-0 pt-1">
-                        <ul class="text-dark m-0 ps-4">
-                            @foreach ($ordonnance->drugs as $drug)
-
-                            <li>{{$drug->name}}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-
-        </td>
-        <td class="">
-        <div class=" d-flex align-items-center justify-content-end">
-            <form action="{{route('ordonnances.downloadPdf',$ordonnance->id)}}" method="post">
-                @csrf
-                <button class="btn btn-info m-0" type="submit">
-                    Print
-                </button>
-            </form>
-        </div>
-        </td>
-    </tr>
-    @empty
-    <tr>
-        <td></td>
-        <td>No Ordonnance for this user to show</td>
-    </tr>
-    @endforelse
-
-
-    </tbody>
-    </table>
-    </div>
-    </div>
-    </div>
-</div> --}}
-
-{{-- <div class="col-12 d-none patientTab m-0" id="facturesTab">
-    <div class="card mb-4">
-    <div class="card-header pb-0">
-    <h6>Factures</h6>
-    </div>
-    <div class="card-body p-0">
-    <div class="table-responsive p-0">
-     <table class="table align-items-center justify-content-center mb-0 ">
-    <thead>
-    <tr>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Patient</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">rest</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Service</th>
-    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date of creation</th>
-    <th></th>
-    </tr>
-    </thead>
-    <tbody>
-        @foreach ($patient->invoices as $invoice)
-
-
-    <tr>
-        <td>
-        <div class="d-flex ps-3">
-        <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" class="avatar avatar-sm rounded">
-        </div>
-        </td>
-        <td>
-        <span class="badge bg-gradient-{{$invoice->rest == 0 ? 'success' :( $invoice->rest <= 200 ? 'warning' : 'danger')}}"> {{$invoice->rest}}</span>
-        </td>
-        <td>
-            <span class="text-sm font-weight-bold mb-0"> {{$invoice->service->name}}</span>
-            </td>
-        <td>
-        <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($invoice->created_at)->format('d/m/Y')}} </p>
-        </td>
-        <td class="d-flex justify-content-end">
-            <button class="btn btn-info text-center m-0" type="button" onclick="this.classList.add('d-none');this.nextElementSibling.classList.remove('d-none')">
-                +
-            </button>
-        <div class="d-none d-flex align-items-center justify-content-end">
-            <form action="{{route('invoice.update',$invoice->id)}}" method="post">
-                @csrf
-                @method('PUT')
-                <div class="row col-12 f-flex">
-                    <div class="col-9">
-                        <input class=" form-control" min="0"  type="number" name="given">
-                    </div>
-
-                    <button class="col-3 btn btn-info text-center m-0" type="submit">
-                        +
-                    </button>
-                </div>
-            </form>
-        </div>
-        </td>
-    </tr>
-    @endforeach
-
-
-    </tbody>
-    </table>
-    </div>
-    </div>
-    </div>
-</div> --}}
-
 </div>
 
 <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">

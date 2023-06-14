@@ -15,7 +15,7 @@
             <div class="row">
               <div class="form-group col-6">
                 <label for="exampleFormControlInput1">Prénom <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="name" placeholder="Prénom">
+                <input type="text" class="form-control" name="fname" placeholder="Prénom">
               </div>
               <div class="form-group col-6">
                 <label for="exampleFormControlInput1">Nom <span class="text-danger">*</span></label>
@@ -25,27 +25,27 @@
             <div class="row">
                 <div class="form-group col-6">
                     <label for="exampleFormControlInput1">N° de téléphone <span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control" value="{{ $patient->phone ?? '' }}" name="phone" placeholder="0606-060606" onkeyup="phoneFormate(this);">
+                    <input type="tel" class="form-control" value="{{ $patient->phone ?? '' }}" name="phone" placeholder="0606-060606" maxlength="10" onkeyup="phoneFormate(this);">
                 </div>
                 <div class="form-group col-6">
                     <label for="exampleFormControlInput1">CIN</label>
-                    <input type="text" class="form-control" name="phone" placeholder="BE252525">
+                    <input type="text" class="form-control" name="cin" placeholder="BE252525">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-6">
                     <label for="example-date-input" class="form-control-label">Date de naissance</label>
-                    <input class="form-control" type="date" value="2000-01-01" id="example-date-input">
+                    <input class="form-control" type="date" name="birth-date" id="example-date-input">
                 </div>
                 <div class="form-group col-6">
                     <label for="example-date-input" class="form-control-label">Genre</label>
                     <div class="row ps-3">
                 <div class="form-check mt-1 col-6">
-                    <input class="form-check-input" checked type="radio" name="gendre" id="customRadio1">
+                    <input class="form-check-input" checked type="radio" name="gender" value="m" id="customRadio1">
                     <label class="custom-control-label m-0" for="customRadio1">Mâle <i class="fa-solid fa-mars"></i></label>
                   </div>
                   <div class="form-check mt-1 col-6">
-                    <input class="form-check-input" type="radio" name="gendre " id="customRadio2">
+                    <input class="form-check-input" type="radio" name="gender" value="f" id="customRadio2">
                     <label class="custom-control-label m-0" for="customRadio2">Femelle <i class="fa-solid fa-venus"></i></label>
                   </div>
                 </div>
@@ -54,7 +54,7 @@
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Patient assurance <span class="text-danger">*</span></label>
                 <select class="form-control" name="assurance_id">
-                  <option value="">Sélectionner l'assurance du patient</option>
+                  <option value="0">Aucune assurance</option>
                   <option value="1">Cnss</option>
                   <option value="2">Cnops</option>
                   <option value="3">Wafa assurance</option>

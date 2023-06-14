@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActController;
 use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DrugController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Comptabilitécontroller;
+use App\Http\Controllers\OnlinereservationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +62,9 @@ Route::post('ordonnances/{ordonnance}',[OrdonnanceController::class,'downloadPdf
 Route::resource('services',ServiceController::class);
 Route::resource('ordonnances',OrdonnanceController::class);
 Route::resource('invoice',InvoiceController::class);
+Route::resource('rendez-vous-enligne',OnlinereservationController::class);
+Route::resource('Comptabilité',Comptabilitécontroller::class);
+Route::resource('actes',ActController::class);
 
 Route::middleware(['isSuperAdmin'])->group( function() {
     Route::resource('assistant',AssistantController::class);
@@ -73,4 +79,4 @@ Route::get('/logout', [LogoutController::class,'logout'])->name('logout');
 
 Route::post('/resfromlanding',[PatientController::class,'resFromLanding'])->name('resfromlanding');
 
-Route::get('/pdf/{ordonnance}',[OrdonnanceController::class,'downloadPdf'])->name('ordonnances.downloadPdf');
+// Route::get('/pdf/{ordonnance}',[OrdonnanceController::class,'downloadPdf'])->name('ordonnances.downloadPdf');

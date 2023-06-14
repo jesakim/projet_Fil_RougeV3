@@ -30,7 +30,7 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone</th>
-                      {{-- <th class="text-secondary opacity-7"></th> --}}
+                      <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -41,7 +41,7 @@
                                 <div>
                                   <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" class="avatar avatar-sm m-0">
                                 </div>
-                                <a href="{{route('patients.show',$patient->slug)}}" class="btn btn-link m-0 me-2 font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                <a href="{{route('patients.show',$patient->slug)}}" target="_blank" class="btn btn-link m-0 me-2 font-weight-bold text-xs">
                                     {{$patient->name}}
                                   </a>
                               </div>
@@ -50,9 +50,14 @@
                       <td>
                         <a href="https://wa.me/+2126{{substr($patient->phone,0,8)}}" target="_blank" class="text-xs font-weight-bold mb-0">{{$patient->phone}}</a>
                       </td>
-                      {{-- <td class="">
+                      <td >
 
-                        @if (!$patient->iswaiting)
+                        <form wire:submit.prevent="addToWaitingList({{$patient->id}},{{!$patient->iswaiting ? '1':'0'}})" method="POST" class="d-flex justify-content-center">
+                            <button class="btn btn-{{!$patient->iswaiting ? 'success':'danger'}} m-0 text-white font-weight-bold text-xs">
+                                {{!$patient->iswaiting ? 'Ajouté à':'Retirer de'}} la salle d'attente
+                            </button>
+                        </form>
+                        {{-- @if (!$patient->iswaiting)
 
                         <form wire:submit.prevent="addToWaitingList({{$patient->id}},1)" method="POST">
                             <button class="btn btn-success m-0 text-white font-weight-bold text-xs">
@@ -64,13 +69,13 @@
 
                         <form wire:submit.prevent="addToWaitingList({{$patient->id}},0)" method="POST">
                             <button class="btn btn-danger m-0 text-white font-weight-bold text-xs" type="submit">
-                                Retirer de la salle d'attente
+                                 la salle d'attente
                             </button>
                         </form>
 
 
-                        @endif
-                      </td> --}}
+                        @endif --}}
+                      </td>
                     </tr>
                     @endforeach
 

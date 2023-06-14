@@ -65,7 +65,7 @@ hr.new4 {
 .ordo{
     position: absolute;
     top: 130px;
-    left: 130px;
+    left: 100px;
     font-size: 30px;
     font-family: 'Cairo', 'sans-serif';
     color: #004AAD;
@@ -100,14 +100,33 @@ hr.new4 {
     left: 135px;
     font-size: 20px;
 }
-.DrugList{
+.montant{
     position: absolute;
     top: 250px;
-    left: 0px;
+    left: 0;
+    font-size: 20px;
+    font-family: 'Cairo', 'sans-serif';
+    color: #004AAD;
+}
+.dhs{
+    position: absolute;
+    top: 265px;
+    left: 100px;
     font-size: 20px;
 }
-.DrugList li {
-    padding: 20px 5px;
+.arretez{
+    position: absolute;
+    top: 300px;
+    left: 0;
+    font-size: 20px;
+    font-family: 'Cairo', 'sans-serif';
+    color: #004AAD;
+}
+.dhs-lettres{
+    position: absolute;
+    top: 350px;
+    left: 50px;
+    font-size: 20px;
 }
 .footerLine{
     border: 1px solid #004AAD;
@@ -149,7 +168,7 @@ hr.new4 {
 
 <header>
     <div class="logo">
-        <img class="logoimg" src='{{asset('assets/img/logos/toothLogo.svg')}}'>
+        <img class="logoimg" src='https://medisolution.com/assets/img/logos/toothLogo.svg'>
         <span class="logotext">CABINET DENTAIRE NAJD</span>
     </div>
     <div>
@@ -168,7 +187,7 @@ hr.new4 {
 </header>
 <main>
     <div class="ordo">
-        Ordonnance
+        Note d'honoraires
     </div>
     <div class="city">
         El jadida, Le ..............................
@@ -180,24 +199,22 @@ hr.new4 {
     <div class="name">
         {{$patientName}}
     </div>
-    <ol class="DrugList">
-        
-        @foreach ($drugs as $drug)
-        <li >{{$drug}} - 2/jour</li>
-        @endforeach
-
-        @foreach ($drugs as $drug)
-        <li >{{$drug}} - 3/jour</li>
-        @endforeach
-
-        @foreach ($drugs as $drug)
-        <li >{{$drug}} - 1/jour</li>
-        @endforeach
-      </ol>
+    <div class="montant">
+        Montant : .........................
+    </div>
+    <div class="dhs">
+        200 Dhs
+    </div>
+    <div class="arretez">
+        Arretez la presente Note d'honoraires à :
+    </div>
+    <div class="dhs-lettres">
+        Deux cent Dhsss
+    </div>
 </main>
 <footer>
     <hr class="footerLine">
-    <div class="footerText"> Résidence yasmine, Lot Najd 1, Appt N5, 1er étage - El Jadida         -        Tél: 05 23 39 55 71  <br> E-mail: fadoua.odontologie@gmail.com           -         INP: 114181159
+    <div class="footerText"> Résidence yasmine, Lot Najd 1, Appt N5, 1er étage,  El Jadida     -     Tél: 05 23 39 55 71     -      INP: 114181159  <br> E-mail: fadoua.odontologie@gmail.com   -   Patente: 42108987   -   ICE: 001945932000080   -   IF: 20786284
     </div>
 </footer>
 </div>

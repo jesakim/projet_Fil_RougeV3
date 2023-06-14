@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         DB::table('assurances')->insert([
             'name' => Str::random(10),
         ]);
-        $this->call([
-            PatientSeeder::class
-        ]);
+        // $this->call([
+        //     PatientSeeder::class
+        // ]);
     }
 }

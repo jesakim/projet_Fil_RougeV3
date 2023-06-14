@@ -36,6 +36,7 @@ class PatientController extends Controller
      */
     public function store(StorePatientRequest $request)
     {
+        // return $request;
        $patient = Patient::create($request->validated());
 
         return back()->with('success','Patient created successfully');
@@ -46,10 +47,14 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        $assurances = DB::table('assurances')->get();
+        // return $patient;
+        $patientinfo = DB::select("select patients.*,assurances.name as assurance_name,reservations.date as lastreservation from patients INNER join assurances on patients.assurance_id = assurances.id left join reservations on reservations.patient_id = patients.id where patients.id = ? ORDER by lastreservation DESC LIMIT 1;",[$patient->id])[0];
+        // return $patientinfo;
         $drugs = Drug::all();
        $services = Service::all();
-        return view('pages.showpatient',compact('patient','assurances','drugs','services'));
+       \Carbon\Carbon::setLocale('fr');
+
+        return view('pages.showpatient',compact('patient','patientinfo','drugs','services'));
     }
 
     /**

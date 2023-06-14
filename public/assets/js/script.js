@@ -44,25 +44,18 @@ Array.from(elem.parentElement.children).forEach(li => {
 });
 elem.classList.add('active')
 
-//  tabs = document.getElementsByClassName('patientTab');
-//  Array.from(tabs).forEach(tab => {
-//     tab.classList.add('d-none')
+ tabs = document.getElementsByClassName('patientTab');
+ Array.from(tabs).forEach(tab => {
+    tab.classList.add('d-none')
 
-// });
-// document.getElementById(tab).classList.remove('d-none');
+});
+document.getElementById(tab).classList.remove('d-none');
 }
 
-var globalSelectedPrice;
+// var globalSelectedPrice;
 function selecteService(elem){
     selectedPrice = elem.options[elem.selectedIndex].getAttribute('data-price');
-    document.getElementById('selectedPrice').value = selectedPrice;
-    document.getElementById('theRest').value = selectedPrice;
-    receivedInput = document.getElementById('received');
-    receivedInput.removeAttribute('disabled');
-    receivedInput.value = 0
-    receivedInput.setAttribute('type','number');
-    // receivedInput.setAttribute('max',selectedPrice);
-    globalSelectedPrice = parseInt(selectedPrice);
+    document.getElementById('acte-price-inp').value = selectedPrice;
 
 
 }
@@ -142,5 +135,31 @@ function drugSearch(inp){
             card.classList.remove('d-none')
         };
     })
+}
+
+
+function actStandardBtn(elem){
+    elem.nextElementSibling.nextElementSibling.classList.remove('text-white');
+    elem.classList.add('text-white');
+    document.getElementById('actePerso').classList.add('d-none')
+    document.getElementById('acteStandard').classList.remove('d-none')
+    // document.getElementById('acte-price-inp').value=null
+    document.getElementById('service_name').value=null
+}
+
+function actPersoBtn(elem){
+    elem.previousElementSibling.previousElementSibling.classList.remove('text-white');
+    elem.classList.add('text-white')
+    document.getElementById('actePerso').classList.remove('d-none')
+    document.getElementById('acteStandard').classList.add('d-none')
+    document.getElementById('acte-price-inp').value=null
+    document.getElementById('service_id').value=null
+}
+
+
+function selectDents(elem,dentNum){
+elem.classList.toggle('active');
+elem.classList.toggle('text-white');
+document.getElementById('btn-check'+dentNum).checked = !document.getElementById('btn-check'+dentNum).checked
 }
 

@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('patients', function (Blueprint $table) {
-            $table->boolean('isconfirmed')->default(1);
+        Schema::create('act_dent', function (Blueprint $table) {
+            $table->foreignId('act_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->smallInteger('dent');
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('patients', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('act_dent');
     }
 };

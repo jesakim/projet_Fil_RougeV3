@@ -12,18 +12,21 @@ class Patient extends Model
     use HasFactory,Sluggable;
 
     protected $fillable = [
+        'fname',
         'name',
         'phone',
+        'cin',
+        'gender',
         'assurance_id',
         'iswaiting',
-        'isconfirmed'
+        'birth-date'
     ];
 
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => ['fname','name']
             ]
         ];
     }

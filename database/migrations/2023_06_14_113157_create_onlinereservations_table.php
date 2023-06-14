@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('patients', function (Blueprint $table) {
-            $table->string('slug')->nullable()->unique();
+        Schema::create('onlinereservations', function (Blueprint $table) {
+            $table->id();
+            $table->string('fname');
+            $table->string('name');
+            $table->dateTime('date');
+            $table->char('status',1);
+            $table->timestamps();
         });
     }
 
@@ -21,9 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('patients', function (Blueprint $table) {
-            $table->dropColumn('slug');
-        });
+        Schema::dropIfExists('onlinereservations');
     }
 };
-
