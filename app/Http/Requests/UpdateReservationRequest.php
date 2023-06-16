@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\notSunday;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReservationRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateReservationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,7 @@ class UpdateReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'date' =>['required','date_format:Y-m-d\\TH:i','after_or_equal:today', new notSunday]
         ];
     }
 }

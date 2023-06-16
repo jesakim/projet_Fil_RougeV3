@@ -50,8 +50,18 @@ class Patient extends Model
     {
         return $this->hasMany(Invoice::class);
     }
+
+    public function actes()
+    {
+        return $this->hasMany(act::class)->orderBy('created_at', 'desc');
+    }
     public function assurance()
     {
         return $this->belongsTo(Assurance::class);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class)->orderBy('id', 'desc');
     }
 }

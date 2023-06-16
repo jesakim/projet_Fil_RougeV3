@@ -1,8 +1,8 @@
 {{-- button --}}
 
-<button type="button" class="btn bg-success text-white m-0 mx-1" data-bs-toggle="modal" data-bs-target="#makeReservation">
+{{-- <button type="button" class="btn bg-success text-white m-0 mx-1" >
     Make reservation
-  </button>
+  </button> --}}
 
 
 <!-- Modal -->
@@ -10,34 +10,21 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Make reservation</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter un RDV</h5>
           <button type="button" class="btn btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{route('reservations.store')}}" method="POST">
+            <form action="{{route('rendez-vous.store')}}" method="POST">
                 @csrf
-            @if (isset($patients))
-            <div class="">
-                <label for="exampleFormControlInput1" class="form-label">Select patient</label>
-                <select class="select2-makeReservation" name="patient_id">
-                    <option value=""></option>
-                    @foreach ($patients as $patient)
-                    <option value="{{$patient->id}}">{{$patient->name}}</option>
-                    @endforeach
-                </select>
-              </div>
-
-            @else
             <input type="hidden" value='{{$id}}' name="patient_id">
 
-            @endif
             <div class="">
-                <label for="exampleFormControlInput1" class="form-label">Reservation date</label>
+                <label for="exampleFormControlInput1" class="form-label">Date</label>
                 <input type="datetime-local" class="form-control" id="exampleFormControlInput1" min="{{date('Y-m-d')}}T00:00" name='date'>
               </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn bg-gradient-primary">Save changes</button>
+          <button type="submit" class="btn bg-gradient-primary">Ajouter</button>
         </div>
     </form>
       </div>

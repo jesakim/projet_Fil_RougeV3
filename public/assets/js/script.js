@@ -21,15 +21,26 @@ function editServices(elem){
 
 function editDrug(drug){
     console.log(drug);
-    // elem.classList.add('d-none');
-    // elem.nextElementSibling.classList.remove('d-none');
-    // elem.parentElement.previousElementSibling.classList.remove('d-none');
-    // elem.parentElement.parentElement.previousElementSibling.classList.add('d-none');
+    form = document.getElementById('editDrugForm');
+    baseroute = form.action
+    ends = baseroute.slice(-1)
+    if(isNaN(ends)){
+
+        form.action = baseroute +'/'+drug.id
+    }else{
+        form.action = baseroute.slice(0, baseroute.length-2) +'/'+drug.id
+    }
+
+    document.getElementById('drugCategory').value = drug.category
+    document.getElementById('drugName').value = drug.name
+
+
 }
 
 function deleteform(id){
     form = document.getElementById('deleteform');
-    form.setAttribute('action','https://projet_fil_rougev2.com/drugs/'+id)
+    baseroute = form.action
+    form.action = baseroute+'/'+id
 }
 
 function serviceDelete(id){
@@ -116,8 +127,6 @@ function toggleDrugSelect(btn){
 }
 
 if(document.contains(document.getElementById("ordopersodate_checkbox"))){
-
-
 document.getElementById("ordopersodate_checkbox").addEventListener("change", function(e) {
 if (this.checked) {
     document.getElementById("ordopersodate").classList.remove('d-none');
@@ -126,6 +135,18 @@ if (this.checked) {
 }
 });
 }
+
+if(document.contains(document.getElementById("notepersodate_checkbox"))){
+    document.getElementById("notepersodate_checkbox").addEventListener("change", function(e) {
+    if (this.checked) {
+        document.getElementById("notepersodate").classList.remove('d-none');
+    } else {
+        document.getElementById("notepersodate").classList.add('d-none');
+    }
+    });
+}
+
+
 
 function drugSearch(inp){
     Array.from(document.getElementsByClassName('drug-card')).forEach(card =>{
@@ -163,3 +184,29 @@ elem.classList.toggle('text-white');
 document.getElementById('btn-check'+dentNum).checked = !document.getElementById('btn-check'+dentNum).checked
 }
 
+function addPaymentBtn(id){
+    console.log(document.getElementById('act_id').value = id);
+
+}
+
+function deleteActBtn(id){
+    console.log(id);
+    form = document.getElementById('deleteActform')
+    baseroute = form.action
+    form.action = baseroute+'/'+id
+
+}
+
+
+function updateReservation(date,id){
+    console.log(id)
+    document.getElementById('reservation-date-inp').value=date;
+    form = document.getElementById('updateReservationForm')
+    baseroute = form.action
+    form.action = baseroute+'/'+id
+}
+
+
+// function fillPatientInfo(totalReceived,totalToBePayed){
+// console.log(totalReceived);
+// }

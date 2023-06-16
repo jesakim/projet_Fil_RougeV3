@@ -19,7 +19,12 @@ class PatientSeeder extends Seeder
 
         for ($i=0; $i < 10; $i++) {
             Patient::create([
-                'name' => fake()->name(),
+                'fname' => fake()->firstName(),
+                'name' => fake()->lastName(),
+                'cin' => 'MC'. fake()->randomNumber(6),
+                'gender' => 'm',
+                'iswaiting'=>fake()->boolean(),
+                'birth_date'=>fake()->date(),
                 'phone' => fake()->numerify('06########'),
                 'assurance_id' => 1,
             ]);

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('act_dent', function (Blueprint $table) {
             $table->foreignId('act_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->smallInteger('dent');
+            $table->tinyInteger('dent');
         });
     }
 

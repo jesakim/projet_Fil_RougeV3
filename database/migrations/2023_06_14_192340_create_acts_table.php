@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('service_id')->nullable()->constrained();
             $table->string('service_name')->nullable();
             $table->string('comment')->nullable();
-            $table->integer('price');
+            $table->smallInteger('price');
             $table->boolean('status');
             $table->timestamps();
         });

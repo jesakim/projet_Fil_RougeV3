@@ -84,7 +84,7 @@
             </a>
           </li>
         <li class="nav-item">
-          <a class="nav-link @yield('resbtn')" href="{{route('reservations.index')}}">
+          <a class="nav-link @yield('resbtn')" href="{{route('rendez-vous.index')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa-regular fa-calendar-days mb-1 text-primary text-sm opacity-10"></i>
             </div>
@@ -122,7 +122,7 @@
                           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-regular fa-user mb-1 text-primary text-sm opacity-10"></i>
                           </div>
-                          <span class="nav-link-text ms-1">Assistants</span>
+                          <span class="nav-link-text ms-1">Assistant(e)s</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -130,7 +130,7 @@
                           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-pills mb-1 text-primary text-sm opacity-10"></i>
                           </div>
-                          <span class="nav-link-text ms-1">Drugs</span>
+                          <span class="nav-link-text ms-1">Médicament</span>
                         </a>
                     </li>
                     <li class="nav-item">

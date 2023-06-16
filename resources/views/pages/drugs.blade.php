@@ -66,7 +66,7 @@
 @forelse($drugs as $drug)
 
 
-  <div class="col-md-4 mt-4 col-sm-6 col-xs-6 col-xl-3 drug-card" data-search-name="{{$drug->name}}">
+  <div class="col-md-3 col-6 mt-4 col-sm-4 col-xl-2 drug-card" data-search-name="{{$drug->name}}">
     <div class="card card-blog card-plain blur-shadow-image" style="background-color: #e9ecef">
       <div class="position-relative">
         <a class="d-block blur-shadow-image">
@@ -77,9 +77,12 @@
           <h5 class="text-center">
             {{$drug->name}}
           </h5>
-          <div class="row w-100 m-0 justify-content-evenly">
-              <button type="button" class="btn btn-outline-primary col-5 m-0" data-bs-toggle="modal" data-bs-target="#addDrugModal" onclick="editDrug({{$drug}})">Modifier</button>
-              <button type="button" class="btn btn-outline-danger col-5 m-0" data-bs-toggle="modal" data-bs-target="#modal-notification" onclick="deleteform({{$drug->id}})">Delete</button>
+          <p class="text-center">
+            {{$drug->category}}
+          </p>
+          <div class="row w-100 m-0 px-2">
+              <button type="button" class="btn btn-outline-primary m-0 mb-2" data-bs-toggle="modal" data-bs-target="#editDrugModal" onclick="editDrug({{$drug}})">Modifier</button>
+              <button type="button" class="btn btn-outline-danger m-0" data-bs-toggle="modal" data-bs-target="#modal-notification" onclick="deleteform({{$drug->id}})">Supprimer</button>
           </div>
       </div>
     </div>
@@ -115,7 +118,7 @@
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-link ml-auto text-primary" data-bs-dismiss="modal">Close</button>
-              <form action="" method="post" id='deleteform'>
+              <form action="{{route('drugs.index')}}" method="post" id='deleteform'>
                 @csrf
                 @method('delete')
                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -131,27 +134,65 @@
         <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h6 class="modal-title" id="modal-title-notification">Ajouter un médicament</h6>
+              <h6 class="modal-title" id="drug-modal-title" >Ajouter un médicament</h6>
             </div>
             <div class="modal-body">
+                <form action="{{route('drugs.store')}}" method="post">
+                    @csrf
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Le nom du médicament</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    <label for="exampleFormControlInput1">Le nom</label>
+                    <input type="text" class="form-control"required placeholder="Nom" name="name">
                   </div>
                   <div class="form-group">
-                    <label for="exampleFormControlSelect1">La catégorie du médicament</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                    <label for="exampleFormControlSelect1">La catégorie</label>
+                    <select class="form-control" required name="category">
+                      <option value="" hidden>Sélectionner une catégorie</option>
+                      <option value="Antibiotiques">Antibiotiques</option>
+                      <option value="Anti-inflammatoires">Anti-inflammatoires</option>
+                      <option value="Brosse à dents">Brosse à dents</option>
+                      <option value="Bain de bouche">Bain de bouche</option>
                     </select>
                   </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link m-0  text-danger" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary m-0">Ajouter</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="editDrugModal" tabindex="-1" role="dialog" aria-labelledby="editDrugModal" aria-hidden="true">
+        <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="drug-modal-title" >Modifier un médicament</h6>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('drugs.index')}}" method="post" id="editDrugForm">
+                    @csrf
+                    @method('PUT')
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Le nom</label>
+                    <input type="text" class="form-control"required placeholder="Nom" name="name" id="drugName">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">La catégorie</label>
+                    <select class="form-control" id="drugCategory" required name="category">
+                      <option value="" hidden>Sélectionner une catégorie</option>
+                      <option value="Antibiotiques">Antibiotiques</option>
+                      <option value="Anti-inflammatoires">Anti-inflammatoires</option>
+                      <option value="Brosse à dents">Brosse à dents</option>
+                      <option value="Bain de bouche">Bain de bouche</option>
+                    </select>
+                  </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link m-0  text-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary m-0" id="DrugSubmitBtn">Modifier</button>
+            </form>
             </div>
           </div>
         </div>

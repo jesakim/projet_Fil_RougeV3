@@ -64,10 +64,10 @@
         --fc-today-bg-color:#bbc4f5;
     }
 </style>
-<div class="d-flex align-items-center justify-content-end mb-2">
+{{-- <div class="d-flex align-items-center justify-content-end mb-2">
 
     <x-make_reservation_modal :patients="$patients"/>
-</div>
+</div> --}}
 @if ($errors->any())
 <div class="alert alert-danger border-0 alert-dismissible fade show my-2" role="alert">
     <ul class="m-0">

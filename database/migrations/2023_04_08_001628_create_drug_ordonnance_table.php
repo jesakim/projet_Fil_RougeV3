@@ -15,6 +15,7 @@ return new class extends Migration
 
             $table->foreignId('drug_id')->constrained();
             $table->foreignId('ordonnance_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->smallInteger('posology');
         });
     }
 

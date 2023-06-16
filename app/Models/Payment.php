@@ -5,9 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dent extends Model
+class Payment extends Model
 {
     use HasFactory;
 
-    // protected $table = 'dent';
+    protected $fillable =[
+        'patient_id',
+        'act_id',
+        'montant'
+    ];
+
+    
 }

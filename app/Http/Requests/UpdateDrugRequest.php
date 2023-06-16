@@ -23,7 +23,8 @@ class UpdateDrugRequest extends FormRequest
     {
         // return dd($this->drug->id);
         return [
-            'name'=>'required|string|unique:drugs,name,'.$this->drug->id.',id,deleted_at,NULL'
+            'name'=>'required|string|unique:drugs,name,'.$this->drug->id.',id,deleted_at,NULL',
+            'category'=>'required|string',
         ];
     }
 }

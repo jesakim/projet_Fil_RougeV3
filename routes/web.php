@@ -13,7 +13,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Comptabilitécontroller;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\OnlinereservationController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,15 +58,18 @@ Route::put('/profile/{user}/changeinfo',[UserController::class,'changeInfo'])->n
 Route::resource('patients',PatientController::class);
 Route::put('patients/{patient}/confirm',[PatientController::class,'comfirmPatient'])->name('comfirmpatient');
 Route::resource('drugs',DrugController::class);
-Route::resource('reservations',ReservationController::class);
-Route::put('reservations/{reservation}',[ReservationController::class,'didcome'])->name('reservations.didcome');
-Route::post('ordonnances/{ordonnance}',[OrdonnanceController::class,'downloadPdf'])->name('ordonnances.downloadPdf');
+Route::resource('rendez-vous',ReservationController::class);
+// Route::put('reservations/{reservation}',[ReservationController::class,'didcome'])->name('reservations.didcome');
+Route::post('ordonnances/{ordonnanceId}',[OrdonnanceController::class,'downloadPdf'])->name('ordonnances.downloadPdf');
+Route::get('ordonnances/{ordonnanceId}',[OrdonnanceController::class,'downloadPdf'])->name('ordonnances.downloadPdf');
 Route::resource('services',ServiceController::class);
 Route::resource('ordonnances',OrdonnanceController::class);
 Route::resource('invoice',InvoiceController::class);
 Route::resource('rendez-vous-enligne',OnlinereservationController::class);
 Route::resource('Comptabilité',Comptabilitécontroller::class);
-Route::resource('actes',ActController::class);
+Route::resource('Acts',ActController::class);
+Route::resource('payments',PaymentController::class);
+Route::resource('note',NoteController::class);
 
 Route::middleware(['isSuperAdmin'])->group( function() {
     Route::resource('assistant',AssistantController::class);

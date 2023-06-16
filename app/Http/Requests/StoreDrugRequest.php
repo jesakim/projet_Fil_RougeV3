@@ -22,7 +22,8 @@ class StoreDrugRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|unique:drugs,name,NULL,id,deleted_at,NULL'
+            'name'=>'required|string',
+            'category'=>'required|string',
         ];
     }
 }

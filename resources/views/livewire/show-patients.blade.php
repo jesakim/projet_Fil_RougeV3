@@ -42,7 +42,7 @@
                                   <img src="https://ui-avatars.com/api/?name={{$patient->name}}&background=random&size=350&uppercase=false&font-size=0.5" class="avatar avatar-sm m-0">
                                 </div>
                                 <a href="{{route('patients.show',$patient->slug)}}" target="_blank" class="btn btn-link m-0 me-2 font-weight-bold text-xs">
-                                    {{$patient->name}}
+                                    {{$patient->fname .' '. $patient->name }}
                                   </a>
                               </div>
 

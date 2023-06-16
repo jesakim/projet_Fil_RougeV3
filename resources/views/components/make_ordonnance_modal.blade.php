@@ -26,18 +26,20 @@
                 </div>
                 <div class="form-group d-none" id="ordopersodate">
                     <label for="example-date-input" class="form-control-label">La date personnalisée</label>
-                    <input class="form-control" type="date" value="{{date("Y-m-d")}}" id="example-date-input">
+                    <input class="form-control" name="date_perso" type="date" id="example-date-input">
                 </div>
             <div id="drug_and_dose_container">
 
             <div class="row">
                 <div class="form-group mb-1 col-9">
                     <label class="form-control-label m-0"><span class="drugindexnumber">1</span> - Le médicament </label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option value="">Veuillez sélectionner un médicament</option>
-                        @foreach ($drugs as $drug)
-                        <optgroup label="Swedish Cars">
-                        <option value="{{$drug->id}}">{{$drug->name}}</option>
+                    <select class="form-control" id="exampleFormControlSelect1" name='drug_ids[]'>
+                        <option value="" hidden>Veuillez sélectionner un médicament</option>
+                        @foreach ($drugs as $drugCategory => $drugs)
+                        <optgroup label="{{$drugCategory}}">
+                            @foreach ($drugs as $drug)
+                            <option value="{{$drug->id}}">{{$drug->name}}</option>
+                            @endforeach
                         </optgroup>
                         @endforeach
                     </select>
@@ -45,7 +47,7 @@
                   <div class="form-group mb-1 p-0 col-3">
                     <label class="form-control-label m-0"><span class="drugindexnumber">1</span> - La posologie</label>
                     <div class="d-flex align-items-center">
-                        <input type="number" class="form-control" id="exampleFormControlInput1" value="3" min="0" placeholder="/J">
+                        <input type="number" class="form-control" id="exampleFormControlInput1" value="3" min="0" placeholder="/J" name="posology[]">
                         <span class="fs-6 ms-1">fois/jour</span>
                     </div>
                   </div>
@@ -53,7 +55,7 @@
         </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary">Créer</button>
         </div>
     </form>
       </div>

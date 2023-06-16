@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\act;
+use App\Models\Act;
 use App\Http\Requests\StoreactRequest;
 use App\Http\Requests\UpdateactRequest;
 
@@ -29,7 +29,7 @@ class ActController extends Controller
      */
     public function store(StoreactRequest $request)
     {
-       $act = act::create($request->validated());
+       $act = Act::create($request->validated());
        $act->dents()->attach($request->safe()->dents);
         return redirect()->back();
     }
@@ -37,15 +37,14 @@ class ActController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(act $act)
+    public function show(Act $Act)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(act $act)
+    public function edit(Act $Act)
     {
         //
     }
@@ -61,8 +60,10 @@ class ActController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(act $act)
+    public function destroy(Act $Act)
     {
-        //
+        // return $Act;
+        $Act->delete();
+        return redirect()->back();
     }
 }

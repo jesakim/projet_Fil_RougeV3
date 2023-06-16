@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class act extends Model
+class Act extends Model
 {
     use HasFactory;
 
@@ -21,6 +21,15 @@ class act extends Model
 
     public function dents()
     {
-        return $this->belongsToMany(dent::class,'act_dent','act_id','dent');
+        return $this->belongsToMany(Dent::class,'act_dent','act_id','dent');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
     }
 }

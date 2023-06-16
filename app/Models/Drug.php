@@ -11,7 +11,7 @@ class Drug extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable=['name'];
+    protected $fillable=['name','category'];
 
 
     public function ordonnances(): BelongsToMany

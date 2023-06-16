@@ -3,16 +3,16 @@
 @section('pageName','Patient')
 
 @section('content')
-<div class="d-flex flex-wrap align-items-center justify-content-end mb-1">
+{{-- <div class="d-flex flex-wrap align-items-center justify-content-end mb-1"> --}}
 {{-- <button class="btn bg-success text-white m-1 text-nowrap">
         <i class="me-1 fa-solid fa-hospital-user"></i>
         Info
     </button> --}}
 
     {{-- <x-facture_modal :id="$patient->id" :services="$services"/> --}}
-    {{-- <x-make_reservation_modal :id="$patient->id"/> --}}
+    <x-make_reservation_modal :id="$patient->id"/>
 
- </div>
+ {{-- </div> --}}
 
 <div class="card">
     <div class="dropdown position-absolute top-0 end-0">
@@ -68,19 +68,19 @@
             </p>
             <p class="mb-1 font-weight-bold text-sm">
                 <i class="fa-solid text-primary fa-coins"></i>
-                Total à payer : <span class="text-dark fw-bolder">1000 Dhs</span>
+                Total à payer : <span class="text-dark fw-bolder" id="totalToBePayed"> Dhs</span>
             </p>
             <p class="mb-1 font-weight-bold text-sm">
                 <i class="fa-solid text-primary fa-hand-holding-dollar"></i>
-                Total reçu : <span class="text-success fw-bolder">250 Dhs</span>
+                Total reçu : <span class="text-success fw-bolder" id="totalReceived"> Dhs</span>
             </p>
             <p class="mb-1 font-weight-bold text-sm">
                 <i class="fa-solid text-primary fa-coins"></i>
-                Total reste : <span class="text-danger fw-bolder">750 Dhs</span>
+                Total reste : <span class="text-danger fw-bolder" id="totalRest"> Dhs</span>
             </p>
             <p class="mb-1 font-weight-bold text-sm">
                 <i class="fa-regular fa-calendar text-primary"></i>
-                Le dernier rendez-vous : {{$patientinfo->lastreservation ? \Carbon\Carbon::parse($patientinfo->lastreservation)->format('d/m/y H:i'):'Aucun'}}
+                Le dernier rendez-vous : {{$patientinfo->lastreservation ? \Carbon\Carbon::parse($patientinfo->lastreservation)->format('d/m/y H:i'):'Aucun RDV'}}
             </p>
         </div>
     </div>
@@ -188,7 +188,7 @@
 
     </div>
     <div class="ms-auto d-flex">
-    <button type="button" class="btn btn-primary btn-sm py-1 pe-3 ps-2 m-0 mx-1 rounded-pill"> <i class="fa-regular fa-calendar text-white me-1"></i> Nouveau RDV</button>
+    <button type="button" class="btn btn-primary btn-sm py-1 pe-3 ps-2 m-0 mx-1 rounded-pill" data-bs-toggle="modal" data-bs-target="#makeReservation"> <i class="fa-regular fa-calendar text-white me-1"></i> Nouveau RDV</button>
     @livewire('patient-waiting-btn',['patient_id' => $patient->id])
   </div>
 </div>
@@ -231,7 +231,7 @@
                 @php
                 include('assets/img/icons/calender.svg');
                 @endphp
-                <span class="textBtn">Render-vous</span>
+                <span class="textBtn">RDV</span>
             </div>
             <div class="tabBtn text-sm" onclick="switchTab(this,'ordoTab')">
                 @php
@@ -259,7 +259,7 @@
             </div>
         </div>
         <div class="card-body px-3 py-1">
-            <section class="patientTab" id="actesTab">
+            <section class="patientTab d-none" id="actesTab">
                 <div class="m-0 d-flex justify-content-end">
                     <x-new_acte_modal :id="$patient->id" :services="$services"/>
                 </div>
@@ -327,46 +327,56 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for ($i=0;$i<10;$i++)
+                        @php
+                            $totalReceived = 0;
+                            $totalToBePayed = 0
+
+                        @endphp
+                        @foreach ($patientActs as $act)
+                        @php
+                                   $totalReceived += $act->totalActReceived;
+                                   $totalToBePayed += $act->price
+                        @endphp
 
                         <tr>
                             <td class="py-0">
-                                <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                                <p class="text-xs text-dark font-weight-bold mb-0">{{\Carbon\Carbon::parse($act->created_at)->format('d/m/y')}}</p>
                             </td>
                             <td  class="py-0">
-                                <p class="text-xs text-dark font-weight-bold mb-0">25,24</p>
+                                <p class="text-xs text-dark font-weight-bold mb-0">{{$act->dents}}</p>
                             </td>
                             <td  class="py-0">
-                                <p class="text-xs d-flex align-items-center text-dark font-weight-bold mb-0">Couronnes jacket céramo-métal <i class="fa-solid fa-comment-medical text-info fs-5 ms-1 pe-auto" title="Couronnes jacket céramo-métal " style="cursor: help;"></i></p>
+                                <p class="text-xs d-flex align-items-center text-dark font-weight-bold mb-0">{{$act->service_name ?? $act->name}}<i class="{{$act->comment ? 'fa-solid fa-comment-medical text-info fs-5 ms-1 pe-auto' : 'd-none'}}" title="{{$act->comment}}" style="cursor: help;"></i></p>
 
                             </td>
                             <td class="py-0">
-                                <p class="text-xs text-dark font-weight-bold mb-0">500</p>
+                                <p class="text-xs text-dark font-weight-bold mb-0">{{$act->price}} Dhs</p>
                             </td>
                             <td  class="py-0">
-                                <p class="text-xs text-success font-weight-bold mb-0">300</p>
+                                <p class="text-xs text-success font-weight-bold mb-0">{{$act->totalActReceived}} Dhs</p>
                             </td>
                             <td  class="py-0">
-                                <p class="text-xs text-warning font-weight-bold mb-0">200</p>
+                                <p class="text-xs text-warning font-weight-bold mb-0">{{$act->price - $act->totalActReceived}} Dhs</p>
                             </td>
                             <td  class="py-0">
-                                <p class=" m-0 badge bg-primary">En cours</p>
+                                @livewire('act-status-btn',['act_id' => $act->id])
                             </td>
 
                             <td class="py-0">
                                 <div class="w-100">
 
-                                    <button type="button" class="btn btn-secondary btn-sm m-0 px-2 py-1">
+                                    <button type="button" class="btn btn-secondary btn-sm m-0 px-2 py-1" data-bs-toggle="modal" data-bs-target="#addPayment" onclick="addPaymentBtn({{$act->id}})">
                                         <i class="fa-solid fa-coins m-0"></i>
                                         Ajouter un payment
                                     </button>
-                                    <button class="btn btn-link text-secondary mb-0">
-                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    <button class="btn btn-link text-danger mb-0"  data-bs-toggle="modal" data-bs-target="#deleteAct" onclick="deleteActBtn({{$act->id}})">
+                                        <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        @endfor
+                        @endforeach
+
                     </tbody>
                     </table>
                 </div>
@@ -383,26 +393,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for ($i=0;$i<10;$i++)
+                        @foreach ($patientPayments as $payment)
+
                         <tr>
                         <td class="py-0">
-                            <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                            <p class="text-xs text-dark font-weight-bold mb-0">{{\Carbon\Carbon::parse($payment->created_at)->format('d/m/y')}}</p>
                         </td>
                         <td  class="py-0">
-                            <p class="text-xs text-dark font-weight-bold mb-0">Couronnes jacket céramo-métal</p>
+                            <p class="text-xs text-dark font-weight-bold mb-0">{{$payment->service_name ?? $payment->name}}</p>
                         </td>
                         <td class="py-0">
-                            <p class="text-xs text-success font-weight-bold mb-0">500</p>
+                            <p class="text-xs text-success font-weight-bold mb-0">{{$payment->montant}}</p>
                         </td>
                         <td>
                             <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-danger btn-sm m-0 px-2 py-1">
-                                    Supprimer
-                                </button>
+                                {{-- <a href="{{route("payments.show",$payment->id)}}" target="_blank"  class="btn btn-info btn-sm m-0 me-1 px-2 py-1">
+                                    <i class="fa-solid fa-file-pdf me-1"></i>
+                                    Créer une Note
+                                </a> --}}
+                                <form action="{{route('payments.destroy',$payment->id)}}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="button" class="btn btn-danger btn-sm m-0 ps-1 px-2 py-1" onclick="this.classList.add('d-none');this.nextElementSibling.classList.remove('d-none');">
+                                        <i class="fa-solid fa-minus me-1"></i>
+                                        Supprimer
+                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-sm m-0 px-2 py-1 d-none">
+                                        confirmer la suppression
+                                    </button>
+                                </form>
                             </div>
                         </td>
                         </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                     </table>
                 </div>
@@ -423,21 +446,25 @@
 
                 <tr>
                     <td>
-                    <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($reservation->date)->format('d/m/y H:i')}} </p>
+                        <p class="text-xs text-dark font-weight-bold mb-0">{{\Carbon\Carbon::parse($reservation->date)->format('d/m/y H:i')}}</p>
                     </td>
                     <td>
                     <span class="badge bg-{{strtotime($reservation->date)>time() ? 'warning' :( $reservation->didcome ? 'success' : 'danger')}}"> {{ \Carbon\Carbon::parse($reservation->date)->diffForHumans()}}</span>
                     </td>
                     <td>
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-info btn-sm m-0 me-1 px-2 py-1">
+                            <button type="button" class="btn btn-info btn-sm m-0 me-1 px-2 py-1" data-bs-toggle="modal" data-bs-target="#updateReservation" onclick="updateReservation('{{$reservation->date}}','{{$reservation->id}}')">
                                 <i class="fa-regular fa-pen-to-square"></i>
                                 Modifier
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm m-0 px-2 py-1">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                                Annuler
-                            </button>
+                            <form action="{{route('rendez-vous.destroy',$reservation->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm m-0 px-2 py-1">
+                                    <i class="fa-regular fa-calendar-xmark"></i>
+                                    Annuler
+                                </button>
+                            </form>
                         </div>
 
                     </td>
@@ -466,7 +493,7 @@
                     @forelse($patient->ordonnances as $ordonnance)
                 <tr>
                     <td>
-                    <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($ordonnance->created_at)->format('d/m/Y')}} </p>
+                    <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($ordonnance->created_at)->format('d/m/y')}} </p>
                     </td>
                     <td>
                         <div class="accordion" id="accordionExample">
@@ -493,13 +520,10 @@
                     </td>
                     <td class="">
                     <div class=" d-flex align-items-center justify-content-end">
-                        <form action="{{route('ordonnances.downloadPdf',$ordonnance->id)}}" method="post">
-                            @csrf
-                            <button class="btn btn-info btn-sm m-0 px-2 py-1" type="submit">
-                                <i class="fa-solid fa-file-pdf me-1"></i>
-                                Afficher
-                            </button>
-                        </form>
+                        <a href="{{route("ordonnances.downloadPdf",$ordonnance->id)}}" target="_blank"  class="btn btn-info btn-sm m-0 px-2 py-1">
+                            <i class="fa-solid fa-file-pdf me-1"></i>
+                            Afficher
+                        </a>
                     </div>
                     </td>
                 </tr>
@@ -515,38 +539,54 @@
                 </table>
                 </div>
             </section>
-            <section class="patientTab d-none" id="notesTab">
+            <section class="patientTab" id="notesTab">
+                <div class="m-0 d-flex justify-content-end">
+                    <x-new_note_modal :id="$patient->id"/>
+                </div>
                 <div class="table-responsive">
                     <table class="table align-items-center mb-0">
                     <thead>
                         <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Montant</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sans/Avec ICE</th>
                         <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for ($i=0;$i<10;$i++)
+                        @foreach ($patient->notes as $note)
+
                         <tr>
                         <td class="py-0">
-                            <p class="text-xs text-dark font-weight-bold mb-0">12/12/1212</p>
+                            <p class="text-sm font-weight-bold mb-0">{{\Carbon\Carbon::parse($note->created_at)->format('d/m/y')}} </p>
                         </td>
                         <td class="py-0">
-                            <p class="text-xs text-success font-weight-bold mb-0">500</p>
+                            <p class="text-xs text-success font-weight-bold mb-0">{{$note->montant}}</p>
+                        </td>
+                        <td class="py-0">
+                            <span class="badge bg-{{!$note->iswithICE ? 'success' : 'warning'}}"> {{$note->iswithICE ? 'Avec' : 'Sans'}}</span>
                         </td>
                         <td>
                             <div class=" d-flex align-items-center justify-content-end">
-                                <form action="{{route('ordonnances.downloadPdf',3)}}" method="post">
-                                    @csrf
-                                    <button class="btn btn-info btn-sm m-0 px-2 py-1" type="submit">
+                                <a href="{{route("note.show",$note->id)}}" target="_blank"  class="btn btn-info btn-sm m-0 me-1 px-2 py-1">
                                     <i class="fa-solid fa-file-pdf me-1"></i>
-                                        Afficher
+                                    Afficher
+                                </a>
+                                <form action="{{route('note.destroy',$note->id)}}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="button" class="btn btn-danger btn-sm m-0 ps-1 px-2 py-1" onclick="this.classList.add('d-none');this.nextElementSibling.classList.remove('d-none');">
+                                        <i class="fa-solid fa-minus me-1"></i>
+                                        Supprimer
+                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-sm m-0 px-2 py-1 d-none">
+                                        confirmer la suppression
                                     </button>
                                 </form>
                             </div>
                         </td>
                         </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                     </table>
                 </div>
@@ -627,6 +667,85 @@
 @endphp
 <x-add_patients_modal :modalId='$modalId' :patient="$patient"/>
 
+<div class="modal fade " id="addPayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter un payment</h5>
+          <button type="button" class="btn btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form action="{{route('payments.store')}}" method="post">
+            @csrf
+            <input type="hidden" name="act_id" id="act_id">
+            <input type="hidden" name="patient_id" value="{{$patient->id}}" id="patient_id">
+            <div class="form-group m-0 mb-2">
+                <label for="acte-price-inp">Montant</label>
+                <input type="number" class="form-control" name="montant" placeholder="200" min="0">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
+
+  <div class="modal fade" id="deleteAct" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title text-danger" id="modal-title-notification">Souhaitez-vous supprimer ce acte</h6>
+        </div>
+        <div class="modal-body p-0">
+          <div class="text-center p-0">
+              <i class="fa-solid text-danger fa-triangle-exclamation h1" style="font-size: 7rem;"></i>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link ml-auto text-primary" data-bs-dismiss="modal">Fermer</button>
+            <form action="{{route('Acts.index')}}" method="POST" id='deleteActform'>
+              @csrf
+              @method('delete')
+              <button type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="updateReservation" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier le RDV</h5>
+          <button type="button" class="btn btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{{route('rendez-vous.index')}}" method="POST" id="updateReservationForm">
+                @csrf
+                @method('PUT')
+                <div class="">
+                    <label for="exampleFormControlInput1" class="form-label">Date</label>
+                    <input type="datetime-local" class="form-control" id="reservation-date-inp" min="{{date('Y-m-d')}}T00:00" name='date'>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn bg-gradient-primary">Modifier</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById('totalToBePayed').innerText = {{$totalToBePayed}}+' Dhs'
+        document.getElementById('totalReceived').innerText = {{$totalReceived}}+' Dhs'
+        document.getElementById('totalRest').innerText = {{$totalToBePayed - $totalReceived}}+' Dhs'
+});
+  </script>
 
 @endsection

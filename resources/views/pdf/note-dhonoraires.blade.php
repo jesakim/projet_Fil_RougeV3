@@ -192,24 +192,24 @@ hr.new4 {
     <div class="city">
         El jadida, Le ..............................
     </div>
-    <div class="date">{{$created_at}}</div>
+    <div class="date">{{date('d/m/Y',strtotime($note->created_at));}}</div>
     <div class="MM">
         Monsieur / Madame :
     </div>
     <div class="name">
-        {{$patientName}}
+        {{$note->patient->fname}} {{$note->patient->name}}
     </div>
     <div class="montant">
         Montant : .........................
     </div>
     <div class="dhs">
-        200 Dhs
+        {{$note->montant}} Dhs
     </div>
     <div class="arretez">
         Arretez la presente Note d'honoraires à :
     </div>
     <div class="dhs-lettres">
-        Deux cent Dhs
+        {{$note->numberToWords}} Dhs
     </div>
 </main>
 <footer>

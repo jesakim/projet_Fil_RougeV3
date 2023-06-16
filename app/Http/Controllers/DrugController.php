@@ -13,7 +13,8 @@ class DrugController extends Controller
      */
     public function index()
     {
-       $drugs = Drug::all();
+       $drugs = Drug::orderBy('category')->get();
+    //    return $drugs;
         return view('pages.drugs',compact('drugs'));
     }
 
@@ -30,6 +31,7 @@ class DrugController extends Controller
      */
     public function store(StoreDrugRequest $request)
     {
+        // return $request;
        Drug::create($request->validated());
        return redirect()->back()->with('success', 'Drug added successfully');
     }

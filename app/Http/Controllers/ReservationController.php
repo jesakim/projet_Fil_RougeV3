@@ -15,8 +15,8 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::join('patients','reservations.patient_id','patients.id')->get();
-        $patients = Patient::all();
-        return view('pages.reservations',compact('reservations' , 'patients'));
+        // $patients = Patient::all();
+        return view('pages.reservations',compact('reservations'));
     }
 
     /**
@@ -63,16 +63,19 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReservationRequest $request, Reservation $reservation)
+    public function update(UpdateReservationRequest $request, Reservation $rendez_vou)
     {
-        //
+        // return $rendez_vou;
+         $rendez_vou->update($request->validated());
+         return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(Reservation $rendez_vou)
     {
-        //
+         $rendez_vou->delete();
+         return redirect()->back();
     }
 }

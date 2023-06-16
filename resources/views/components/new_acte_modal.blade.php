@@ -11,7 +11,7 @@
           <button type="button" class="btn btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{route('actes.store')}}" method="post">
+            <form action="{{route('Acts.store')}}" method="post">
                 @csrf
             <input type="hidden" value='{{$id}}' name="patient_id">
 
@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
         </form>
         </div>
       </div>

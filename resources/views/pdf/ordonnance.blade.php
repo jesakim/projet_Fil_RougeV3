@@ -178,20 +178,12 @@ hr.new4 {
         Monsieur / Madame :
     </div>
     <div class="name">
-        {{$patientName}}
+        {{$ordonnance[0]->fname .' '.$ordonnance[0]->name}}
     </div>
     <ol class="DrugList">
-        
-        @foreach ($drugs as $drug)
-        <li >{{$drug}} - 2/jour</li>
-        @endforeach
 
-        @foreach ($drugs as $drug)
-        <li >{{$drug}} - 3/jour</li>
-        @endforeach
-
-        @foreach ($drugs as $drug)
-        <li >{{$drug}} - 1/jour</li>
+        @foreach ($ordonnance as $drug)
+        <li >{{$drug->drugName}} - {{$drug->posology}}/jour</li>
         @endforeach
       </ol>
 </main>
